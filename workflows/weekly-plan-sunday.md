@@ -16,8 +16,11 @@ this job.
 
 ## What this run does (Strategist role)
 
-1. Get dates from `date`. Compute the seven dates Monday..Sunday starting
-   tomorrow.
+1. Get dates from `date`. Compute the coming Monday..Sunday window. On the
+   scheduled Sunday run that window starts tomorrow. If this is a manual run on
+   any other day, it starts on the next Monday. Never write a date before
+   2026-11-09, the plan's first day: those are pre-launch days, and a row for
+   them is an escalation, not a calendar entry.
 2. Ensure `plans/calendar-30d.md` exists and that **every one of the seven
    dates has exactly one row**. Schema (social plan §8):
 
