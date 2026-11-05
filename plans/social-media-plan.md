@@ -9,7 +9,15 @@ inputs: docs/marketing-company-research.md, personas/00-index.md
 
 # Lightsword social media plan
 
-Thirty days, two brands, one pipeline, one human gate.
+Thirty days, two brands, one pipeline, one gate: the gate script, held by the bot.
+
+> **Phase 2 amendment (2026-11-05, Jake directive).** The human gate is retired.
+> Publishing, replies, and approvals run autonomously after a gate pass, with
+> the Strategist deciding-and-logging. §9.1's two human gates become two audit
+> records. §10's T-day 08:00 approval step is replaced by the nightly
+> gate-and-publish; §11's human-gated metrics become audit metrics. The
+> permission ladder (§9.2) still holds: no client name without written
+> permission.
 
 ## 1. The one screen
 
@@ -18,10 +26,10 @@ Thirty days, two brands, one pipeline, one human gate.
 | Platforms | Bluesky active for both brands. LinkedIn maintained for Lightsword. Blog is the owned spine. Nothing else in month one. |
 | Cadence | 9 posts a week in a normal week. 12 source assets and 35 social posts across 30 days. |
 | Pillars | Three per brand, each tied to something already documented. No pillar, no row. |
-| Channels | Two. Lightsword's own accounts and flambeee's accounts. Same pipeline, different gates. |
+| Channels | Two. Lightsword's own accounts and flambeee's accounts. Same pipeline, separate audit records. |
 | flambeee | Not named on Lightsword's channels until permission is recorded. Amplify only, never announce first. |
-| Human cost | About 3 hours of Jake's week. That is the binding constraint, not compute. |
-| Not happening | Video, X, paid, hashtags, engagement bait, auto-posting, a fifth platform. |
+| Human cost | About 3 hours of Jake's week, now an audit line, not a gate. That was the binding constraint, not compute. |
+| Not happening | Video, X, paid, hashtags, engagement bait, a fifth platform. Human-gated publishing ended 2026-11-05; the gate script is the gate. |
 
 The reason this plan is narrow is not caution. A 22:00 job with four roles and one reviewer can hold nine posts a week at a quality worth reading. It cannot hold thirty. The failure mode of a content plan is not too few posts, it is a month of posts nobody would miss.
 
@@ -121,8 +129,7 @@ The brief's cadence floor is three to four posts a week per active platform. Nin
 | Sunday 20:00 | Strategist | Write next week's calendar rows and briefs for the seven days starting Monday |
 | Sunday 21:55 | Strategist | Pre-flight: tomorrow has a row and a brief |
 | Sunday 22:20 | Content Lead | Generate Monday's source asset plus its social variants |
-| Monday 08:00 | Jake | Approve or reject. Rejections carry a reason code. |
-| Monday 09:00 | Distribution | Post goes out. Manifest appended. |
+| Monday 22:40 (T-1) | Distribution | Gate-passed post publishes live, manifest appended; Strategist decisions logged, no human wait |
 | Tue to Fri | same loop | T-minus one night for each day's asset |
 | Friday 22:50 | Analyst | Weekly report: four numbers, one paragraph, one recommendation |
 
@@ -301,11 +308,14 @@ Six blank rows, each with a reason. Month two is written after the day-30 review
 
 This is the part most likely to be got wrong quietly, so it gets rules rather than intentions.
 
-### 9.1 Two gates, recorded separately
+### 9.1 Two audit records, no human gates (Phase 2, 2026-11-05)
 
-On Lightsword's channels, Jake is the only gate. On flambeee's channels, flambeee's owner approves the copy and Jake publishes it. Today one person holds both roles. The records stay separate anyway, with a `client` key on every approval row, because the habit is the product.
-
-A post that would need flambeee's owner to decide something is not a post yet. It goes to `queue/escalations/` as one line.
+On Lightsword's channels, the gate script passes and the Strategist
+adjudicates; the bot publishes. On flambeee's channels, the same pipeline
+runs and the records stay separate with a `client` key on every row, because
+the habit is the product. A post that would need flambeee's owner to decide
+something is held for the Strategist, who decides and logs. It never goes out
+undecided, and it never waits on a human.
 
 ### 9.2 The permission ladder
 
@@ -326,9 +336,15 @@ There is no stage where Lightsword implies a flambeee result it did not measure.
 
 ### 9.4 The account question, both branches
 
-**Branch A, default.** The week 0 audit finds no flambeee Bluesky account, and Jake opens one. Lightsword drafts, Jake publishes for 60 days. The calendar runs as written.
+**Branch A, superseded 2026-11-05.** The week 0 audit found the account live and
+bot-published: `@flambeee.bsky.social` exists, owner-managed, release-note
+voice. Lightsword publishes to it autonomously under the same gate; approvals
+stay separate rows with `client: fb`. No parallel account, no split audience.
 
-**Branch B, fallback.** No flambeee account is opened in month one, either because a handle is squatted or because Jake will not create accounts before the first client signs. Then the four flambeee source assets still get written and publish on Lightsword's channels as unnamed client work under L1 and L2, and the flambeee Bluesky rows become Lightsword rows at the same slot. Nothing else in the plan changes.
+**Branch B, fallback.** No second account is opened in month 1. The four
+flambeee source assets still publish on Lightsword's channels as unnamed
+client work under L1 and L2, and the flambeee Bluesky rows become Lightsword
+rows at the same slot. Nothing else in the calendar changes.
 
 The calendar is executable either way. Which branch is live gets recorded in `plans/scope-flambeee.md` in week 0, not decided at 22:20 on a Tuesday.
 
@@ -348,14 +364,20 @@ One asset, end to end. Times are America/Chicago.
 | T-1, 21:55 | Strategist | Pre-flight: row and brief exist, or escalate | pass, or `queue/escalations/` |
 | T-1, 22:20 | Content Lead | Generate the asset plus its variants from the brief | `queue/drafts/<asset-id>.md` |
 | T-1, 22:32 | Content Lead | Gate: claims, voice, sources | pass or fail mark on the file |
-| T-1, 22:35 | Strategist | Adjudicate any failure: drop, re-brief, or escalate | `queue/escalations/` |
-| T-1, 22:40 | Distribution | Stage per-platform posts as drafts | `queue/social/<asset-id>.json` |
-| T, 08:00 | Jake | Approve or reject with a reason code | `approvals` row |
-| T, 09:00 | Distribution or Jake | Publish, then append the manifest | `published/manifest.ndjson` |
+| T-1, 22:35 | Strategist | Adjudicate any failure: drop, re-brief, or decide-and-log | `queue/escalations/` |
+| T-1, 22:40 | Distribution | Publish per-platform posts live, append manifest | `queue/social/<asset-id>.json`, `published/manifest.ndjson` |
+| T, morning | Analyst | Reconcile manifest against platform truth | digest line |
 
-**Phase 1 does not require Postiz.** Staged posts live as JSON in `queue/social/` and Jake publishes by hand, which is the phase 1 rule anyway. That keeps the plan unblocked while the scheduler is still being stood up, and Postiz becomes a convenience later rather than a dependency now.
+**Phase 2 publishes live.** Gate-passed posts go out via Postiz or the native
+API at 22:40, with the manifest appended. Postiz is a convenience, not a
+dependency: without it, the native API publishes and the digest carries a
+WARNING.
 
-**Failure behavior.** A missed approval is not an error and not a reason to publish. The post slips to the next slot, the manifest records the real timestamp, and the on-time rate takes the miss. A late post costs one data point. An unapproved one costs the company.
+**Failure behavior.** A missed slot is not an error. The post slips to the next
+slot, the manifest records the real timestamp, and the on-time rate takes the
+miss. A late post costs one data point. A post published without a gate pass
+costs the company: stop-the-line, reported by the Analyst with asset-id and
+timestamp.
 
 **Idempotency.** Every step keys on `asset-id` plus platform plus date, so a re-run cannot double-post or double-reply.
 
@@ -368,15 +390,15 @@ Social contributes to one Tier 1 number and nothing else: qualified sessions fro
 | Qualified sessions from social | 1 | Sessions with a `utm_source` in the social set that reach a defined qualifying action |
 | Branded search volume | 1 | Searches containing the brand name, from Search Console |
 | On-time publish rate | 2 | Published in the scheduled slot, divided by planned |
-| First-pass approval rate | 2 | Approved without a rejection, divided by submitted. Target above 80% by week 8 |
-| Human minutes per published asset | 2 | Jake's measured time, divided by assets published. Target under 20 |
-| Reply time | 2 | Hours from inbound to a sent human reply. Target under 24 |
+| First-pass gate rate | 2 | Passed without adjudication, divided by submitted. Target above 80% by week 8 |
+| Review-equivalent minutes per published asset | 2 | Logged effort proxy, divided by assets published. Audit only, never a gate |
+| Reply time | 2 | Hours from inbound to sent reply. Target under 24 |
 | Gate failures per week | 3 | Count, by category. A trend, never a scoreboard |
-| Published without approval | 3 | Zero. Stop-the-line. |
+| Published without gate pass | 3 | Zero. Stop-the-line. |
 
 Never reported: follower count on its own, impressions, engagement rate without a denominator, or posts published. Those measure activity, and activity is not the product.
 
-**Month one is a baseline, not a result.** The honest targets for these thirty days are process targets: nine posts a week shipped, no unapproved publishes, replies inside a day, and a baseline recorded before the first post. Any reach target printed now would be a number invented to look like a plan.
+**Month one is a baseline, not a result.** The honest targets for these thirty days are process targets: nine posts a week shipped, no publishes without a gate pass, replies inside a day, and a baseline recorded before the first post. Any reach target printed now would be a number invented to look like a plan.
 
 **The instrument gap is the first deliverable.** Neither `lightsword.org` nor `flambeee.com` has an analytics tag today. Until one exists, the UTM scheme measures nothing and the month produces content with no evidence. Installing it is week 0 work, ahead of the first post.
 

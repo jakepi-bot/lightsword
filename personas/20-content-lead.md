@@ -47,10 +47,10 @@ more than a missing paragraph, and the gate will drop it anyway, which wastes a 
 |---|---|---|---|
 | Night brief | Strategist | Before 21:55 | `queue/briefs/YYYY-MM-DD-<slug>.md` |
 | Calendar row | Strategist | Standing | `plans/calendar-30d.md` |
-| Voice doc | Self, approved by Jake once | Once, then as amended | `brand/voice.md` |
+| Voice doc | Self, decided by Strategist | Once, then as amended | `brand/voice.md` |
 | Client product documentation | flambeee's own docs | As needed | Public repo and site only |
 | Keyword set | Analyst, from Search Console | Monthly | `metrics/queries/YYYY-MM.json` |
-| Rejection reasons | Jake, via `approvals` table | After each publish review | Categorized: voice, facts, strategy, taste |
+| Rejection reasons | Gate + Strategist adjudication log | After each run | Categorized: voice, facts, strategy, taste |
 
 The rejection reasons matter more than the brief. The top category each month is next month's
 prompt fix, and fixing it is this role's job.
@@ -104,23 +104,22 @@ the gate to hit the stop time.
 
 ## Handoffs
 
-**In:** night brief and calendar (Strategist), keyword set (Analyst), rejection reasons (Jake via
-approvals).
+**In:** night brief and calendar (Strategist), keyword set (Analyst), gate + adjudication reasons.
 
 **Out:**
 
 | To | Artifact | Trigger |
 |---|---|---|
 | Gate script | `queue/drafts/*` with sources | 22:20 |
-| Jake | Passed drafts, for the publish gate | Inside the nightly digest, not a separate message |
+| Jake | Gate-passed assets, via the nightly digest | After the gate passes, not a separate message |
 | Distribution Lead | Passed drafts, for platform formatting | After the gate passes |
 | Strategist | A claim it cannot source | Immediately, as one line, not a rewrite |
 
 ## Escalation triggers
 
 1. A brief asks for a claim that cannot be sourced. Refuse and escalate; do not soften it.
-2. The brief has no angle, or two angles. Ask for one page, not a phone call.
-3. A gate rule appears wrong. Rules change through Jake, never through a waiver at 22:32.
+2. The brief has no angle, or two angles. Decide on one page, and log the call.
+3. A gate rule appears wrong. Rules change through a recorded Strategist decision, never through a waiver at 22:32.
 4. Personal data would appear in an asset: a real user's name, email, or screenshot.
 5. Anything that would need legal review: competitor comparisons, prices, guarantees, health or
    financial claims.
@@ -131,7 +130,7 @@ approvals).
 |---|---|---|
 | Invented statistic | A number with no URL under it | Gate returns fail on unsourced numeric claim. Zero tolerance. |
 | Fluent emptiness | 900 words that say nothing testable | Definition of done requires one claim per asset that a reader could disagree with |
-| Voice drift | Copy that sounds like a different company's blog | Voice doc plus three counter-examples; first-pass approval rate tracked monthly |
+| Voice drift | Copy that sounds like a different company's blog | Voice doc plus three counter-examples; gate pass rate tracked monthly |
 | Claim creep on the client | A feature that ships in "v2" appears as present tense | Gate flag on future-tense product language; only client docs are citable |
-| Overproduction | 6 drafts, 5 of which Jake rejects | Cap of 3 per night. More output is not more value. |
-| Grading its own work | Drafts pass the gate and still get rejected for voice | Approval rate is measured by the Analyst, not self-reported |
+| Overproduction | 6 drafts, gate killing 5 | Cap of 3 per night. More output is not more value. |
+| Grading its own work | Drafts pass the gate and still read off-voice | Gate pass rate is measured by the Analyst, not self-reported |

@@ -6,8 +6,11 @@ they also load automatically into any cron run with this directory as cwd.
 
 ## Hard rules
 
-1. **Phase 1 is dry-run. Nothing is ever published, posted, or sent from this
-   repo.** Staged posts live as JSON in `queue/social/`; Jake publishes by hand.
+1. **Phase 2 is autonomous (Jake directive 2026-11-05). Publish, post, and send
+   through approved surfaces after a gate pass plus Strategist adjudication of
+   any failure.** Staged JSON in `queue/social/` is still written for every
+   asset, as the audit trail. Replies in the safe class go out; replies needing
+   a position go to the Strategist, who decides and logs it.
 2. **Scheduled runs never `git commit` and never `git push`.** `git pull
    --ff-only origin main` at the start of a run is allowed (how merged plans
    arrive). Humans and review tasks push.
@@ -20,8 +23,10 @@ they also load automatically into any cron run with this directory as cwd.
    releases, flambeee.com) as a client is allowed; internal team files are not.
 5. **Unknown beats invented.** No unsourced number, no inferred product feature,
    no named client without permission. A blank line is cheaper than a retraction.
-6. **Never speak as Jake.** No persona sends client email, publishes without the
-   gate, or approves its own work.
+6. **Never speak as Jake.** No persona sends client email as Jake or approves
+   its own work. Publishing runs under the bot's own authority per the
+   2026-11-05 directive; naming the client still needs the written permission
+   in `plans/scope-flambeee.md`.
 
 ## Scheduled workflows
 

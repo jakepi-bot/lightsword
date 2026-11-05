@@ -25,13 +25,13 @@ planning job lands the calendar rows and briefs well before it.
 | 0 | 22:00 | Strategist | Pre-flight: tomorrow has a calendar row; non-empty rows need an unexpired brief | pass / `queue/escalations/` | Missing row or brief HALTS phases 3–7 only. Phases 1, 2, 8, 9 still run. |
 | 1 | 22:00 | Analyst | Pull site analytics, Search Console, social, email | `metrics/YYYY-MM-DD.json` | No tag/credentials: record `unavailable` + reason. Never fabricate a number. |
 | 2 | 22:05 | Distribution | Collect inbound since last run; flambeee client check (public surface only) | `queue/inbound/YYYY-MM-DD.json` | No accounts yet: record an empty set + warning. No sending. |
-| 3 | 22:10 | Distribution | Draft replies to inbound | `queue/replies/*` | Max 5 replies; human sends for first 60 days. Nothing inbound = nothing written. |
+| 3 | 22:10 | Distribution | Publish safe-class replies; hold position/risk replies for Strategist decision | `queue/replies/*` | Max 5 replies. Safe class (thanks, doc links, hours) publishes; pricing/outage/complaint/person held, never templated. Nothing needing a position goes out undecided. |
 | 4 | 22:20 | Content Lead | Generate tomorrow's assets from brief + calendar row | `queue/drafts/*` | Max 3 assets, every claim sourced. No brief = no asset. |
 | 5 | 22:32 | Content Lead | Mechanical gate: `python3 workflows/gate.py <files>` | pass/fail mark per file | Fail closed. A FAIL blocks staging for that file. Time-boxed 3 min. |
-| 6 | 22:35 | Strategist | Adjudicate gate failures: drop, re-brief, or escalate | `queue/escalations/` | Only failures reach here; 5-min budget; >3 failures = a brief problem, say so in the digest. |
-| 7 | 22:40 | Distribution | Stage passing assets as social drafts | `queue/social/*.json` | Never publish (phase 1). Postiz absent = WARNING, not failure. |
+| 6 | 22:35 | Strategist | Adjudicate gate failures: drop, re-brief, or decide-and-log | `queue/escalations/` | Only failures reach here; 5-min budget; >3 failures = a brief problem, say so in the digest. Decisions are recorded with reasons; nothing waits on a human. |
+| 7 | 22:40 | Distribution | Publish passing assets live, append manifest | `queue/social/*.json`, `published/manifest.ndjson` | Postiz/scheduler or native API. Every publish appends the manifest with asset-id, platform, url, timestamp. Postiz absent = publish via native API + WARNING, not failure. |
 | 8 | 22:50 | Analyst | Five-line morning digest from run log and snapshots | `reports/nightly/YYYY-MM-DD.md` | A line that says nothing gets deleted. |
-| 9 | 22:55 | Strategist | "Needs Jake" list ordered by cost of delay, one line each | same file, appendix | Max 3 items; >3 = the approval gate is misconfigured — escalate that as the item. |
+| 9 | 22:55 | Strategist | "Decisions taken" list ordered by cost of delay, one line each | same file, appendix | Max 3 items; decisions logged with reasons, policy questions noted for Jake's weekly review. |
 | 10 | 23:00 | Workflow | Hard stop | log line + final response | Unfinished work rolls to tomorrow, loudly. No retry storms. |
 
 Phases 1 and 2 are independent and may run in any order. Everything after
@@ -51,10 +51,11 @@ chain — no silent continuation on stale data.
     never invent or rewrite the calendar here.
 - **The two-part gate.** Mechanical: `workflows/gate.py` decides pass/fail;
   the Content Lead runs it and may not edit it or waive a result. Adjudicated:
-  the Strategist reads only the failures and drops, re-briefs, or escalates.
-  The writer never clears its own failure.
-- **Scheduler absent (Postiz, etc.)** = one WARNING line in the digest;
-  `queue/social/*.json` is still written for hand publishing. Never a failure.
+  the Strategist reads only the failures and drops, re-briefs, or
+  decides-and-logs with a reason. Nothing waits on a human. The writer never
+  clears its own failure.
+- **Scheduler absent (Postiz, etc.)** = publish via native platform API + one
+  WARNING line in the digest. Never a failure.
 - **No credentials / no data** (analytics tag, social accounts, Search
   Console) = record `unavailable` with the reason + a warning line. Never a
   failure, never an invented number.
@@ -72,15 +73,16 @@ chain — no silent continuation on stale data.
    {"ts":"<ISO-8601>","date":"YYYY-MM-DD","run":"nightly","halted":false,"phases":{"preflight":"pass","metrics":"ok","inbound":"ok","replies":"0","generation":"0","gate":"pass","staging":"0"},"warnings":[],"drafts":0,"gate_pass":0,"gate_fail":0,"staged":0,"escalations":0}
    ```
 
-2. Write `reports/nightly/YYYY-MM-DD.md`: five digest lines + the needs-Jake
-   appendix (open `queue/escalations/*`, pending approvals, tonight's blockers).
+2. Write `reports/nightly/YYYY-MM-DD.md`: five digest lines + the decisions-taken
+   appendix (open `queue/escalations/*`, tonight's decisions with reasons, policy
+   questions for Jake's weekly review).
 3. Final response to the scheduler: max 5 lines, status flags first. It is
    delivered to Jake's Discord — one line per phase, then halt/warning flags,
    then paths written.
 
 ## Never
 
-- `git commit`, `git push`, publishing, posting, sending (AGENTS.md rules 1–2).
+- `git commit`, `git push`, publishing without a gate pass (AGENTS.md rules 1–2).
 - Reading flambeee internal files (AGENTS.md rule 4); the client check reads
   only public surfaces: `gh api repos/jakepi-bot/flambeee/releases`, the
   repo's `BLOG.md`/`README.md`, flambeee.com.

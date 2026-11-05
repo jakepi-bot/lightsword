@@ -19,8 +19,11 @@ Written 2026-11-04 by jakebot for task t_fde1bfae.
 | 3 | [Distribution Lead](30-distribution-lead.md) | Publishing, cadence, community replies | `queue/replies/*`, `queue/social/*`, `published/manifest.ndjson` | 22:05 to 22:20, 22:40 to 22:50 |
 | 4 | [Analyst](40-analyst.md) | Measurement and the learning loop | `metrics/*`, `reports/weekly/*`, `reports/nightly/*` | 22:00 to 22:05, 22:50 to 22:55 |
 
-Jake sits outside the roster as the only human approver. He is not a persona and he gets no
-persona file. He has exactly one gate: publish.
+Jake sits outside the roster: he sets policy and direction. Per his 2026-11-05
+directive the company operates autonomously — no human gates. Publishing,
+replies, and approvals run under the bot's own authority after a gate pass;
+the Strategist decides and logs. Naming the client still needs written
+permission (third-party consent).
 
 ---
 
@@ -76,16 +79,16 @@ published.
 |---|---|---|---|---|
 | Night brief | `queue/briefs/YYYY-MM-DD-<slug>.md` | Strategist | Content Lead, Distribution Lead | No |
 | Voice doc | `brand/voice.md` | Content Lead | Content Lead, Distribution Lead | Once, at creation |
-| Draft asset | `queue/drafts/<asset-id>.md` | Content Lead | Compliance gate, then Jake | **Yes, at publish** |
-| Reply draft | `queue/replies/YYYY-MM-DD-<platform>-<n>.md` | Distribution Lead | Compliance gate, then Jake | **Yes** |
-| Staged post | `queue/social/YYYY-MM-DD-<platform>-<n>.json` | Distribution Lead | Postiz scheduler as draft | **Yes, before live** |
+| Draft asset | `queue/drafts/<asset-id>.md` | Content Lead | Compliance gate, then publish | No — gate pass + Strategist adjudication |
+| Reply draft | `queue/replies/YYYY-MM-DD-<platform>-<n>.md` | Distribution Lead | Compliance gate, then Strategist for position/risk | Safe class: no. Position/risk: Strategist decides |
+| Staged post | `queue/social/YYYY-MM-DD-<platform>-<n>.json` | Distribution Lead | Scheduler or native API, live | No — gate pass publishes; JSON stays as audit |
 | Publish manifest | `published/manifest.ndjson` | Distribution Lead | Analyst | No |
 | Metrics snapshot | `metrics/YYYY-MM-DD.json` | Analyst | Analyst, Strategist | No |
 | Nightly digest | `reports/nightly/YYYY-MM-DD.md` | Analyst | Jake, Strategist | No (read) |
-| Weekly report | `reports/weekly/YYYY-Wnn.md` | Analyst | Jake, client | **Yes, Jake reads before client** |
-| 90-day plan | `plans/90-day-plan.md` | Strategist | Everyone | **Yes, at creation and at scope change** |
-| 30-day calendar | `plans/calendar-30d.md` | Strategist | Content Lead | Yes, initial |
-| Escalation | `queue/escalations/YYYY-MM-DD-<slug>.md` | Any role | Strategist, then Jake | **Yes** |
+| Weekly report | `reports/weekly/YYYY-Wnn.md` | Analyst | Jake, client | No (logged in digest; Jake reviews weekly) |
+| 90-day plan | `plans/90-day-plan.md` | Strategist | Everyone | At creation and at scope change, decided by Strategist and logged |
+| 30-day calendar | `plans/calendar-30d.md` | Strategist | Content Lead | Initial, decided by Strategist and logged |
+| Escalation | `queue/escalations/YYYY-MM-DD-<slug>.md` | Any role | Strategist, decision log | No — decided and logged, policy questions noted for weekly review |
 
 ### The seams that could overlap, and how they are cut
 
@@ -111,13 +114,13 @@ Order matters: each step consumes the previous step's files.
 | 21:55 | Strategist | Pre-flight: confirm tomorrow has a calendar row and an unexpired brief | pass / `queue/escalations/` | Missing row halts steps 4 to 6. No content generation on an unplanned day. |
 | 22:00 | Analyst | Pull site analytics, Search Console, social, email | `metrics/YYYY-MM-DD.json` | Read-only credentials |
 | 22:05 | Distribution | Collect mentions, comments, replies since last run | `queue/inbound/YYYY-MM-DD.json` | No sending |
-| 22:10 | Distribution | Draft replies | `queue/replies/*` | Max 5 replies. Human sends for first 60 days. |
+| 22:10 | Distribution | Publish safe-class replies | `queue/replies/*` | Max 5 replies. Position/risk held for Strategist. |
 | 22:20 | Content Lead | Generate tomorrow's assets from the calendar | `queue/drafts/*` | Max 3 assets. Every asset carries a source list. |
 | 22:32 | Content Lead | Run compliance and claims gate over new drafts plus tonight's reply drafts | pass/fail mark on each file | Fail closed. No pass, no queue. |
-| 22:35 | Strategist | Adjudicate gate failures: drop, revise-brief, or escalate | `queue/escalations/*` | Only failures reach this step. Triage budget 5 min. |
-| 22:40 | Distribution | Stage passing assets to Postiz as drafts, append manifest | `queue/social/*`, `published/manifest.ndjson` | Never auto-publish in phase 1 |
+| 22:35 | Strategist | Adjudicate gate failures: drop, revise-brief, or decide-and-log | `queue/escalations/*` | Only failures reach this step. Triage budget 5 min. |
+| 22:40 | Distribution | Publish passing assets live, append manifest | `queue/social/*`, `published/manifest.ndjson` | Gate pass publishes |
 | 22:50 | Analyst | Write the five-line morning digest from run log and snapshots | `reports/nightly/YYYY-MM-DD.md` | Five lines. A line that says nothing gets deleted. |
-| 22:55 | Strategist | Order the "needs Jake" list by cost of delay, one line each | `reports/nightly/YYYY-MM-DD.md` appendix | Max 3 items. More than 3 means the gate is misconfigured. |
+| 22:55 | Strategist | Order the "decisions taken" list by cost of delay, max 3 items, one line each | `reports/nightly/YYYY-MM-DD.md` appendix | Decisions logged with reasons |
 | 23:00 | Workflow | Hard stop | exit code plus failure line | Unfinished work rolls to tomorrow, loudly. No retry storms. |
 
 Deviations from the brief's table, and why:
@@ -141,9 +144,10 @@ Deviations from the brief's table, and why:
 
 ---
 
-## 6. Human minutes budget
+## 6. Publish audit budget (was: human minutes, pre-2026-11-05)
 
-The scarce resource is Jake's review time, not compute. Per published asset:
+Autonomous since 2026-11-05: nothing below gates on Jake. The table is kept as
+an audit measure of review-equivalent effort per asset, not a gate.
 
 | Role | Minutes per asset | What he is actually doing |
 |---|---|---|
@@ -182,8 +186,10 @@ Fixed schema so the workflow task (t_7070f858) can parse it and the social plan 
 - **Hard rule 1.4.** No Flambeee persona file, prompt, workflow, cron, database, or asset is
   reused in this company. Flambeee is client one, not shared infrastructure. Reading Flambeee's
   public writing as a client is allowed. Reading Flambeee's internal prompts is not.
-- **Advisory to Jake, never acting as him.** No persona sends client email, publishes without
-  the gate, or speaks as Jake. Drafts only, until he says otherwise.
+- **Advisory to Jake, never acting as him.** No persona sends client email as
+  Jake or speaks as Jake. Gate-passed publishing runs under the bot's own
+  authority (2026-11-05 directive). Naming the client still needs written
+  permission.
 - **Unknown beats invented.** No unsourced number, no inferred product feature, no named client
   without permission. A blank line is cheaper than a retraction.
 - **One tool per job, every tool has an exit.** If the export is not a readable file, it does not

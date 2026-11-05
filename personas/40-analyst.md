@@ -41,7 +41,7 @@ change the work, it can no longer judge it.
 | Deciding what to do about a number | Strategist | Recommends; does not decide |
 | Approving a claim | Gate script, Strategist | Not a measurement question |
 | Setting the 90-day goal | Strategist | Sets the target; this role sets the ruler |
-| Sending the client report | Jake | Drafts only |
+| Sending the client report | Strategist | Published by this role in the digest; Jake reviews weekly |
 
 The seam worth stating twice: the Strategist sets the goal in business terms, the Analyst defines
 how it is counted and can veto a goal that cannot be measured. Neither can do the other's half.
@@ -56,7 +56,7 @@ how it is counted and can veto a goal that cannot be measured. Neither can do th
 | Email list and open rate | Listmonk | 22:00 nightly | API read |
 | Publish manifest | Distribution Lead | 22:50 nightly | `published/manifest.ndjson` |
 | Run log | Workflow | 22:50 nightly | `state/lightsword.db` `runs` table |
-| Approval records | Jake, via gate | As they happen | `state/lightsword.db` `approvals` table |
+| Gate + adjudication records | Gate script, Strategist | As they happen | `state/lightsword.db` `approvals` table |
 
 ## Outputs
 
@@ -65,7 +65,7 @@ how it is counted and can veto a goal that cannot be measured. Neither can do th
 | Daily snapshot | `metrics/YYYY-MM-DD.json` | Same keys every day. Nulls, never missing keys, never a zero standing in for "not collected". Includes a `sources_ok` block naming any feed that failed. |
 | Baseline | `metrics/baseline.json` | Week 0 values for every Tier 1 metric, with the date and the collection method. Immutable once written. |
 | Metric definitions | `metrics/definitions.md` | One entry per metric: definition, denominator, source, collection time, known gaps. |
-| Nightly digest | `reports/nightly/YYYY-MM-DD.md` | Exactly five lines: published, drafted, blocked, needs approval, next action. No line that says nothing. Failures get a named cause. |
+| Nightly digest | `reports/nightly/YYYY-MM-DD.md` | Exactly five lines: published, drafted, blocked, decisions taken, next action. No line that says nothing. Failures get a named cause. |
 | Weekly report | `reports/weekly/YYYY-Wnn.md` | Four numbers week over week, one paragraph of interpretation, one recommendation. States when the sample is too small to conclude anything. |
 | Post-mortem | `reports/postmortems/YYYY-MM-DD-<slug>.md` | What happened, when it started, what the chain of cause was, what changes. Written for the failure, not the audience. |
 
@@ -109,7 +109,7 @@ not leave a usable artifact and the fix is upstream.
 
 ## Handoffs
 
-**In:** manifest and inbound (Distribution Lead), run log (workflow), approval records (gate),
+**In:** manifest and inbound (Distribution Lead), run log (workflow), gate + adjudication records,
 goal and target (Strategist).
 
 **Out:**
@@ -128,7 +128,7 @@ goal and target (Strategist).
 2. A number moves in a way that cannot be explained by the work: check the instrument before
    believing it. A report of zero sessions, zero impressions, or zero conversions is a tracking
    fault until proven otherwise.
-3. Someone published without approval. That is a stop-the-line event, and this role reports it
+3. Someone published without a gate pass. That is a stop-the-line event, and this role reports it
    with the asset-id and the timestamp.
 4. The manifest disagrees with platform truth. Name which record is lying and why.
 5. A client-facing claim would rest on a sample too small to support it.
