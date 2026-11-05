@@ -30,3 +30,11 @@ npm-debug.log*
 # Local scratch
 tmp/
 .cache/
+
+# Runtime artifacts — scheduled runs write these; never commit (public repo)
+queue/
+metrics/
+reports/
+published/
+state/
+assets/images/
