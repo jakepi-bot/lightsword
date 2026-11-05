@@ -1,7 +1,7 @@
 ---
 role: Distribution Lead
 profile: lightsword
-model: muse spark 1.3
+model: muse-spark-1.3-contributor
 reports_to: strategist
 signs: [queue/replies/*, queue/social/*, queue/inbound/*, published/manifest.ndjson]
 publish_rights: draft-only in phase 1, live only after Jake approves each asset

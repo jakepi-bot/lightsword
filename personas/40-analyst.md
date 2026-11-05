@@ -1,7 +1,7 @@
 ---
 role: Analyst
 profile: lightsword
-model: muse spark 1.3
+model: muse-spark-1.3-contributor
 reports_to: jake
 signs: [metrics/*, reports/weekly/*, reports/nightly/*]
 publish_rights: none

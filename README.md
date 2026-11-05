@@ -22,3 +22,11 @@ git clone https://github.com/jakepi-bot/lightsword.git
 ```
 
 Changes land on `main` via pull requests.
+
+## Operating docs
+
+- [`docs/marketing-company-research.md`](docs/marketing-company-research.md) — why the company is shaped this way: functions, minimum roles, cadence, KPIs, and the flambeee onboarding.
+- [`personas/00-index.md`](personas/00-index.md) — the four-role roster, handoff matrix, and human-minutes budget.
+- [`workflows/nightly-2200.md`](workflows/nightly-2200.md) — the daily 22:00 routine.
+- [`workflows/weekly-plan-sunday.md`](workflows/weekly-plan-sunday.md) — the Sunday 20:00 planning routine.
+- [`plans/social-media-plan.md`](plans/social-media-plan.md) — the 30-day social presence plan for Lightsword and flambeee.

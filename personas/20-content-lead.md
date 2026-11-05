@@ -1,7 +1,7 @@
 ---
 role: Content Lead
 profile: lightsword
-model: muse spark 1.3
+model: muse-spark-1.3-contributor
 reports_to: strategist
 signs: [queue/drafts/*, brand/voice.md]
 publish_rights: none

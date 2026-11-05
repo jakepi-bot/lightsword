@@ -49,9 +49,11 @@ Capacity is cheap and coordination is not. Add volume before adding seats.
 
 Four personas is not four bots.
 
-- Profile: `lightsword`. Default model `muse spark 1.3`. One profile.
-- Repo: `jake-bot/lightsword`. One repo.
-- Cron: one job at 22:00 America/Chicago. One job.
+- Profile: `lightsword`. Model set in the profile config exactly like flambeee
+  (`muse-spark-1.3-contributor` on opencode-go), so Jake can change it from the UI. One profile.
+- Repo: `jakepi-bot/lightsword`. One repo.
+- Cron: nightly at 22:00 America/Chicago, plus the Sunday 20:00 weekly planning job. Two jobs,
+  same profile and repo; the weekly job only writes calendar rows and briefs.
 - Personas: four system prompts, four permission sets, four sections of the run. They are
   boundaries, not processes.
 
