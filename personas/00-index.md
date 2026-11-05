@@ -36,7 +36,7 @@ and a standing mandate to say "this did not move" in writing. Keep the seat.
 | Candidate | Ruling | Reason |
 |---|---|---|
 | Sales / BD | Cut until client two | Building a pipeline persona for a pipeline that does not exist. Jake sells. |
-| Designer | Skill on Content Lead | ComfyUI plus templates. Becomes a seat at three clients, not before. |
+| Designer | Skill on Content Lead | Image generation plus templates. Becomes a seat at three clients, not before. |
 | Compliance | A gate, not a persona | Hard rule 1.5. It is a step in the publish workflow that returns pass or fail. Never a standing agent, never its own cron. |
 | Community manager | Function of Distribution | Publishing and replying are the same feedback loop at this volume. Split at roughly 5 posts/day or 50 inbound/week. |
 | Project manager | Does not exist | Coordination overhead is failure mode three. Handoffs are files, so nothing needs relaying. |

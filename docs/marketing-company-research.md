@@ -115,7 +115,7 @@ Principle: self-hosted where it is boring, hosted where self-hosting costs more 
 | Analytics | Plausible or Umami, self-hosted | Cookie-light, cheap, no GA4 consent mess |
 | Search data | Google Search Console | Only real source of query data |
 | Email | Listmonk, self-hosted | Owns the list |
-| Images | ComfyUI locally | Already on the box, no per-image cost |
+| Images | Gemini image model via Hermes (local ComfyUI removed 2026-11-05) | Central provider, no local GPU cost |
 | Orchestration | Hermes profile `lightsword` plus cron, isolated repo | Same pattern as Flambeee, separate everything |
 | State | SQLite for queue and run logs | Queryable, no service to babysit |
 | Reporting | Markdown to the repo, PDF only when a client asks | Nobody reads a dashboard twice |

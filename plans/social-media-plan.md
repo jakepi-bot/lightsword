@@ -214,7 +214,7 @@ An agency that writes every client in the agency's voice is the most common way 
 |---|---|
 | Bluesky | 300 characters. Link in the post, not a reply chain. Alt text on every image, written by the Distribution Lead. |
 | LinkedIn | 900 characters maximum. First line must stand alone, because that is all most people see. No "comment YES". |
-| Images | Generated locally via ComfyUI or captured from the product. No stock. No faces of real people without a release. |
+| Images | Generated via the Gemini image model (through Hermes) or captured from the product. No stock. No faces of real people without a release. |
 | Links | UTM-tagged: `utm_source`, `utm_medium=social`, `utm_campaign=<pillar>`, `utm_content=<asset-id>` |
 | Replies | Human-sent for the first 60 days. Never a template. |
 

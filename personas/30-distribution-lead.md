@@ -71,7 +71,7 @@ It does not press send.
 | Bluesky native API | Read and draft | Reply threads, where Postiz is awkward |
 | Platform read APIs | Read | Inbound collection |
 | Repo (git) | Write `queue/replies/`, `queue/social/`, `queue/inbound/`, `published/` | Its own artifacts |
-| ComfyUI output | Read `assets/images/` | Media attachment |
+| Hermes image output | Read `assets/images/` | Media attachment |
 | Email and DMs | **No access** | No sending, ever |
 | Analytics | **No access** | Not its measurement |
 

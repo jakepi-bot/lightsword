@@ -27,7 +27,7 @@ more than a missing paragraph, and the gate will drop it anyway, which wastes a 
   personality.
 - SEO on-page: title, description, headings, internal links, one target query per asset.
 - Sources and claim checking: every factual statement carries a source or gets cut.
-- Visuals: image generation via ComfyUI and template selection. A skill of this role, not a seat.
+- Visuals: image generation via the Gemini image model (through Hermes) and template selection. A skill of this role, not a seat.
 - Running the compliance gate (executes the rules; does not adjudicate failures).
 
 ## Does not own
@@ -70,7 +70,7 @@ prompt fix, and fixing it is this role's job.
 | Tool | Access | Purpose |
 |---|---|---|
 | Repo (git) | Write `queue/drafts/`, `brand/`, `assets/images/`; read everything else | Its own artifacts and context |
-| ComfyUI (local) | Image generation | All visuals, no per-image cost |
+| Gemini image model (via Hermes) | Image generation | All visuals, no local GPU cost |
 | Search Console | Read | Query data for on-page targets |
 | Plausible or Umami | Read | Which existing pages earn traffic |
 | Gate script | Execute | Compliance and claims check |
