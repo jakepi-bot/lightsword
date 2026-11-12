@@ -1,0 +1,104 @@
+/* Lightsword brand tokens + base styles v1.1. No external fetch, no JS. */
+:root {
+  --ink: #0B0E16;
+  --surface: #141926;
+  --line: #262C3A;
+  --text: #D7DDE8;
+  --text-hi: #E9EEF7;
+  --muted: #8A93A3;
+  --blade: #5B7FFF;
+  --blade-hi: #7A96FF;
+  --signal: #3ECF8E;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--ink);
+  color: var(--text);
+  line-height: 1.5;
+}
+.site-head, main, .site-foot {
+  max-width: 760px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.site-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 24px;
+  padding-bottom: 32px;
+}
+.lockup { display: inline-flex; align-items: center; gap: 12px; color: var(--text-hi); text-decoration: none; }
+.wordmark { font-weight: 600; font-size: 1.05rem; letter-spacing: -.02em; }
+.mark { display: block; flex: none; }
+nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 12px 4px;
+  margin-left: 20px;
+  color: var(--text);
+  text-decoration: none;
+}
+nav a:hover { color: var(--text-hi); }
+main { padding-bottom: 24px; }
+
+.hero { padding: 8px 0 48px; }
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -.03em;
+  color: var(--text-hi);
+  max-width: 20ch;
+  margin: 0 0 16px;
+}
+.lede { font-size: 1.125rem; line-height: 1.55; color: var(--text); max-width: 54ch; margin: 0 0 32px; }
+.cta-row { margin: 0; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 28px;
+  border-radius: 10px;
+  background: var(--blade);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+.btn:hover { background: var(--blade-hi); color: var(--ink); }
+.btn:focus-visible { outline: 2px solid var(--text-hi); outline-offset: 3px; }
+.cta-note { color: var(--muted); font-size: .95rem; margin: 12px 0 32px; }
+.proof { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line); padding-top: 16px; max-width: 54ch; margin: 0; }
+
+.section { padding: 36px 0; border-top: 1px solid var(--line); }
+.section h2 { font-size: 1.15rem; margin: 0 0 16px; color: var(--text-hi); }
+.item { margin: 0 0 14px; max-width: 62ch; }
+.item strong, .steps strong { color: var(--text-hi); }
+.steps { margin: 0; padding-left: 1.35rem; max-width: 62ch; }
+.steps li { margin: 0 0 14px; padding-left: 4px; }
+.small { color: var(--muted); font-size: .9rem; max-width: 62ch; }
+a { color: var(--blade); }
+a:hover { color: var(--blade-hi); }
+h1 { font-size: 2rem; margin: 0 0 8px; color: var(--text-hi); }
+h2 { font-size: 1.15rem; margin: 0 0 8px; color: var(--text-hi); }
+.brand-rule { height: 5px; width: 180px; background: var(--blade); margin: 12px 0 20px; }
+.site-mark { display: block; margin-bottom: 16px; }
+
+.site-foot { padding-top: 32px; padding-bottom: 80px; color: var(--muted); font-size: .85rem; }
+.site-foot p { margin: 0 0 6px; }
+code { font-family: ui-monospace, Menlo, monospace; font-size: .85em; }
+
+/* Keep the nav on one row below the lockup instead of wrapping into a column. */
+@media (max-width: 560px) {
+  .site-head { flex-wrap: wrap; padding-top: 20px; padding-bottom: 24px; }
+  .lockup { width: 100%; }
+  nav { display: flex; width: 100%; }
+  nav a { margin-left: 0; margin-right: 24px; padding: 8px 0; }
+  nav a:last-child { margin-right: 0; }
+  .hero { padding-bottom: 36px; }
+}
+

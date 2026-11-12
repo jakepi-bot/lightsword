@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Lightsword">
+  <rect x="0" y="0" width="256" height="256" rx="48" fill="#0B0E16"/>
+  <g transform="rotate(-45 128 128)">
+    <polygon points="118,52 138,52 128,32" fill="#5B7FFF"/>
+    <rect x="118" y="52" width="20" height="132" rx="4" fill="#5B7FFF"/>
+    <rect x="96" y="188" width="64" height="10" rx="3" fill="#D7DDE8"/>
+  </g>
+</svg>
