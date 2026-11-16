@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Lightsword">
   <rect x="0" y="0" width="256" height="256" rx="48" fill="#0B0E16"/>
-  <g transform="rotate(-45 128 128)">
-    <polygon points="118,52 138,52 128,32" fill="#5B7FFF"/>
-    <rect x="118" y="52" width="20" height="132" rx="4" fill="#5B7FFF"/>
-    <rect x="96" y="188" width="64" height="10" rx="3" fill="#D7DDE8"/>
-  </g>
+  <path d="M128 30 L146 70 L146 156 L110 156 L110 70 Z" fill="#DCE6FF"/>
+  <path d="M128 44 L134 72 L134 148 L122 148 L122 72 Z" fill="#FFFFFF"/>
+  <rect x="78" y="156" width="100" height="15" rx="6" fill="#E7ECF5"/>
+  <rect x="118" y="171" width="20" height="40" rx="5" fill="#39415A"/>
+  <circle cx="128" cy="222" r="12" fill="#5B7FFF"/>
 </svg>
