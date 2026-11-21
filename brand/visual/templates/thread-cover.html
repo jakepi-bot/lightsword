@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lightsword — thread cover</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+<script src="../fit.js" defer></script>
+<style>
+  :root { --pad: 72px; }
+  .stage { display: block; padding: var(--pad); }
+  .content { margin-top: 72px; }
+  .beam { margin-bottom: 30px; }
+  .t { height: 150px; }
+  .lede { margin-top: 24px; max-width: 800px; font-size: 32px; }
+  .ftr { position: absolute; left: var(--pad); right: var(--pad); bottom: var(--pad); }
+  .hdr-label .count { color: var(--text); }
+</style>
+</head>
+<body class="wide">
+<div class="stage grid">
+
+  <div class="hdr">
+    <div class="lockup">{{mark}}<span class="wordmark">Lightsword</span></div>
+    <div class="hdr-label">
+      <span class="ticks"><i class="on"></i><i></i><i></i><i></i><i></i></span>
+      <span class="count">01 / 05</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="beam wide"></div>
+    <div class="fitbox t">
+      <h1 class="display d3" data-fit data-floor="44">{{title}}</h1>
+    </div>
+    <p class="lede">{{hook}}</p>
+  </div>
+
+  <div class="ftr">
+    <div class="rule"></div>
+    <div class="row"><span>lightsword.org</span><span>{{footer_right}}</span></div>
+  </div>
+
+</div>
+</body>
+</html>

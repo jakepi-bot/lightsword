@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lightsword — link card / Open Graph</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+<script src="../fit.js" defer></script>
+<style>
+  .stage { padding: 68px 72px; display: block; }
+  .lockup { position: absolute; top: 66px; left: 72px; }
+  .lockup .wordmark { font-size: 26px; }
+  .t { height: 160px; margin-top: 104px; }
+  .d3 { font-size: 62px; max-width: 690px; }
+  .desc {
+    margin: 26px 0 0; font-size: 30px; line-height: 1.45; color: var(--muted);
+    letter-spacing: -.008em; max-width: 620px;
+  }
+  .domain {
+    position: absolute; left: 72px; bottom: 66px;
+    font-family: var(--font-mono); font-size: 22px; font-weight: 500;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+    margin: 0;
+  }
+  .domain b { color: var(--text); font-weight: 500; }
+  .bigmark { right: 64px; }
+</style>
+</head>
+<body class="wide">
+<div class="stage">
+
+  <div class="lockup">{{mark}}<span class="wordmark">Lightsword</span></div>
+
+  <div class="fitbox t">
+    <h1 class="display d3" data-fit data-floor="44">{{title}}</h1>
+  </div>
+  <p class="desc">{{description}}</p>
+  <p class="domain">{{domain}}</p>
+  <div class="bigmark">{{mark_lg}}</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lightsword — announcement card</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+<script src="../fit.js" defer></script>
+<style>
+  .a { height: 368px; margin-top: 44px; }
+  .lede { margin-top: 44px; }
+  .hdr-label .prov { color: var(--text); }
+</style>
+</head>
+<body class="square">
+<div class="stage">
+
+  <div class="hdr">
+    <div class="lockup">{{mark}}<span class="wordmark">Lightsword</span></div>
+    <div class="hdr-label">{{hdr_label}}</div>
+  </div>
+
+  <div class="content">
+    <p class="kicker"><span class="tick"></span>{{eyebrow}}</p>
+    <div class="fitbox a">
+      <h1 class="display d2" data-fit data-floor="54">{{headline}}</h1>
+    </div>
+    <p class="lede">{{support}}</p>
+  </div>
+
+  <div class="ftr">
+    <div class="rule"></div>
+    <div class="row"><span>lightsword.org</span><span class="prov">{{provenance}} · {{footer_right}}</span></div>
+  </div>
+
+</div>
+</body>
+</html>

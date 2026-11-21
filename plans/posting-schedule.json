@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "updated": "2026-11-21",
+  "timezone": "America/Chicago",
+  "authority": {
+    "kanban": "t_3e006185",
+    "root": "t_27e05413",
+    "request": "Update Lightsword campaign schedule to daily",
+    "operator_comment": "2026-11-21: It should write when is best for engagement",
+    "supersedes": [
+      "plans/growth-plan-30d-2026-11-08.md §6.1 (5 Lightsword posts/week, Mon-Fri, 09:00)",
+      "reports/campaign/2026-11-19-reach-final.md recommendation 5 (drop the daily post cadence)"
+    ]
+  },
+  "cadence": "daily",
+  "campaign": {
+    "name": "lightsword-daily-2026-11-21",
+    "account": "lt",
+    "cadence": "daily",
+    "slot": "19:00",
+    "first_publish": "2026-11-23T19:00:00-06:00",
+    "status": "active",
+    "client_component": {
+      "account": "fb",
+      "status": "blocked",
+      "reason": "scope §14 window closed 2026-11-19 07:10; a new written window is required before any client publish"
+    }
+  },
+  "channels": {
+    "lt": {
+      "handle": "lightsword.bsky.social",
+      "calendar_channel": "LT Bluesky",
+      "cadence": "daily",
+      "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
+      "publish_time": "19:00",
+      "publisher": "nightly b83aa855e26a arms at 22:00 T-1; outbox tick 84e5289134f4 publishes at the slot",
+      "requires_window": false,
+      "empty_rows_allowed": true
+    },
+    "fb": {
+      "handle": "flambeee.bsky.social",
+      "calendar_channel": "FB Bluesky (staged)",
+      "cadence": "3/week staged",
+      "days": ["mon", "wed", "fri"],
+      "publish_time": "12:05",
+      "publisher": "client owner by default; bot publishes only inside a written window",
+      "requires_window": true,
+      "window_file": "~/.hermes/profiles/lightsword/state/flambeee-window.json",
+      "status": "blocked: scope §14 window closed 2026-11-19 07:10; daily client posting needs a new written window",
+      "empty_rows_allowed": true
+    }
+  },
+  "jobs": {
+    "nightly": "b83aa855e26a",
+    "outbox_tick": "84e5289134f4",
+    "weekly_planning": "2b4e865f7401",
+    "link_check": "e180ec9bc2cd"
+  },
+  "checks": {
+    "schedule": "workflows/schedule-check.py (nightly phase 0)",
+    "links": "18:45 job e180ec9bc2cd, workflows/link-check.py: 200 or text_fallback/held before the 19:00 slot"
+  },
+  "review": {
+    "after_posts": 14,
+    "metric": "interactions (likes+reposts+replies+quotes) per original post by publish hour",
+    "minimum_per_hour": 5,
+    "owner": "Analyst",
+    "date": "2026-12-08",
+    "report": "reports/weekly/2026-12-04.md and the day-30 review"
+  },
+  "evidence": {
+    "internal": {
+      "source": "metrics/2026-11-21.json per_post; metrics/2026-11-21-posting-times.json; public AppView read 2026-11-21",
+      "lt_originals": 15,
+      "lt_interactions": 3,
+      "by_hour": {
+        "05:00": {"posts": 2, "interactions": 0},
+        "07:00": {"posts": 3, "interactions": 0},
+        "08:00": {"posts": 1, "interactions": 2},
+        "09:00": {"posts": 5, "interactions": 0},
+        "19:00": {"posts": 1, "interactions": 0},
+        "22:00": {"posts": 3, "interactions": 1}
+      },
+      "note": "No hour has enough posts to rank; this is recorded so the next review has a baseline."
+    },
+    "external": [
+      {
+        "source": "Buffer, >3,000,000 Bluesky posts, 2026",
+        "finding": "weekday peak 6-9 pm local; Saturday 5 pm; weekday 10 am-1 pm quietest",
+        "url": "https://buffer.com/resources/best-time-to-post-on-bluesky/"
+      },
+      {
+        "source": "PostDaily, 8,373 posts from 344 accounts, within-account test",
+        "finding": "no meaningful effect of posting time",
+        "url": "https://www.postdaily.app/blog/best-time-to-post-on-bluesky"
+      },
+      {
+        "source": "BskySuite, 27,755 posts from 491 accounts, within-account test",
+        "finding": "quiet vs busy hours 1.00x",
+        "url": "https://bskysuite.com/blog/bluesky-best-time-to-post/"
+      }
+    ]
+  }
+}

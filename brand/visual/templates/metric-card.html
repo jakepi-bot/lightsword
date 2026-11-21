@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lightsword — metric card</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+<script src="../fit.js" defer></script>
+<style>
+  .content {
+    flex: 1; margin: 0; display: flex; flex-direction: column;
+    justify-content: center;
+  }
+  .kicker { font-size: 28px; margin-bottom: 44px; }
+  .numeral { margin: 0 0 40px; }
+  .source { display: flex; align-items: center; gap: 14px; margin-top: 36px; }
+  .source .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--signal); flex: none; }
+</style>
+</head>
+<body class="square">
+<div class="stage">
+
+  <div class="hdr">
+    <div class="lockup">{{mark}}<span class="wordmark">Lightsword</span></div>
+    <div class="hdr-label">{{hdr_label}}</div>
+  </div>
+
+  <div class="content">
+    <p class="kicker is-muted">{{label}}</p>
+    <p class="numeral">{{number}}<span class="unit">{{unit}}</span></p>
+    <div class="beam"></div>
+    <div class="source"><span class="dot"></span><p class="meta">{{source}}</p></div>
+  </div>
+
+  <div class="ftr">
+    <div class="rule"></div>
+    <div class="row"><span>lightsword.org</span><span>{{footer_right}}</span></div>
+  </div>
+
+</div>
+</body>
+</html>

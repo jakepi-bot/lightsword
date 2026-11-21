@@ -1,0 +1,32 @@
+<!DOCTYPE html><html><head><style>
+      *{margin:0;padding:0} html,body{width:512px;height:512px;overflow:hidden}
+      body{background:#0B0E14} svg{width:100%;height:100%;display:block}
+    </style></head><body>
+    <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+<g>
+  <defs>
+    <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.55" stop-color="#DCE6FF"/>
+      <stop offset="1" stop-color="#8FA9FF"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="7" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#glow)">
+    <!-- blade: tip, straight edges, flat base -->
+    <path d="M128 22 L147 64 L147 158 L109 158 L109 64 Z" fill="url(#beam)"/>
+    <!-- fuller: the light core -->
+    <path d="M128 38 L135 68 L135 150 L121 150 L121 68 Z" fill="#FFFFFF"/>
+    <!-- crossguard -->
+    <rect x="74" y="158" width="108" height="17" rx="7" fill="#E7ECF5"/>
+    <!-- grip -->
+    <rect x="117" y="175" width="22" height="46" rx="6" fill="#39415A"/>
+    <!-- pommel -->
+    <circle cx="128" cy="231" r="14" fill="#5B7FFF"/>
+  </g>
+</g>
+</svg>
+    </body></html>

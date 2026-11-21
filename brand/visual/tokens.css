@@ -1,0 +1,77 @@
+/* ============================================================
+   Lightsword — visual tokens v1.0
+   Single source of truth for every rendered asset and the site.
+   Edit here, re-run render.py, never hand-tune a PNG.
+   ============================================================ */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: block;
+  src: url('fonts/Inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: block;
+  src: url('fonts/Inter-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: block;
+  src: url('fonts/JetBrainsMono-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: block;
+  src: url('fonts/JetBrainsMono-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  /* --- field ------------------------------------------------- */
+  --ink:        #0B0E16;   /* page + render background            */
+  --surface:    #141926;   /* cards, mark badge, banner field     */
+  --line:       #262C3A;   /* hairlines, borders, grid            */
+
+  /* --- type -------------------------------------------------- */
+  --text:       #D7DDE8;   /* body on dark                        */
+  --text-hi:    #E9EEF7;   /* display type only                   */
+  --muted:      #8A93A3;   /* captions, labels. Never a claim.    */
+
+  /* --- accents ----------------------------------------------- */
+  --blade:      #5B7FFF;   /* the beam. Max two per asset.        */
+  --signal:     #3ECF8E;   /* verified markers only, with a date  */
+  --client:     #E94560;   /* single-client accent, client-work   */
+  --client-navy:#16203A;   /* client-work field tint              */
+
+  /* --- type stacks ------------------------------------------- */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+  /* --- layout ------------------------------------------------ */
+  --canvas:     1200px;
+  --pad:        96px;      /* outer margin = one grid cell        */
+  --grid:       96px;      /* engineering grid pitch              */
+  --gutter:     24px;
+  --col:        148px;     /* 6 cols + 24 gutters = 1008 content  */
+  --radius:     10px;
+
+  /* --- scale, 1200 canvas ------------------------------------ */
+  --t-kicker:   25px;      /* mono, uppercase, tracked            */
+  --t-meta:     22px;      /* mono, footer + attribution          */
+  --t-lede:     34px;
+  --t-d1:       80px;      /* quote / insight                     */
+  --t-d2:       92px;      /* announcement headline               */
+  --t-d3:       64px;      /* cover + link card title             */
+  --t-num:     232px;      /* metric numeral                      */
+}

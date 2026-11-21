@@ -108,17 +108,30 @@ If a week comes in over four hours of Jake's time, the fix is the brief or the c
 
 | Channel | Posts/week | Days | Slot (America/Chicago) | Status |
 |---|---|---|---|---|
-| Lightsword Bluesky | 4 | Mon, Tue, Thu, Fri | 09:00 | Active |
-| flambeee Bluesky | 3 | Wed, Fri, Sun | 17:30 | Active |
+| Lightsword Bluesky | **7 (daily)** | Mon-Sun | **19:00** | Active — changed 2026-11-21, `plans/posting-schedule.md` |
+| flambeee Bluesky | 3 | Wed, Fri, Sun | 17:30 | Staged; client posts at 12:05 |
 | Lightsword LinkedIn | 2 | Tue, Thu | 07:30 | Maintained |
 
 LinkedIn is maintained rather than active for month one. That is a deliberate deviation from the three-to-four-a-week floor, and the reason is that a page with two substantive posts a week reads as a real company while a page with four thin ones reads as a content farm. It gets promoted to active the first week LinkedIn produces one qualified session.
 
-Slots are a starting hypothesis, not a finding. There is no traffic data on either brand, so the first two weeks of the Analyst's numbers move them. No slot survives week four without a measured difference, and no slot is defended on vibes.
+**2026-11-21 amendment.** The Lightsword Bluesky row is daily at 19:00, not
+4/week at 09:00. The operator directive (kanban `t_3e006185`: "It should write
+when is best for engagement") supersedes the 09:00 hypothesis. The evidence, the
+measurement plan and the client-window dependency are in
+`plans/posting-schedule.md`; the 09:00 rows above stay as the original design
+record. `plans/growth-plan-30d-2026-11-08.md` §6.1 carries the same change for
+the 30-day window.
+
+Slots are a starting hypothesis, not a finding. There is no traffic data on either brand, so the first two weeks of the Analyst's numbers move them. No slot survives week four without a measured difference, and no slot is defended on vibes. The 19:00 slot is no exception: it is the least-bad prior from the published studies, and the day-30 review decides whether it survives.
 
 ### 5.3 Why nine and not thirty
 
 Nine posts a week is one and a quarter a day. Thirty would need either four assets a night at review quality, or a reviewer who skims. Both produce the same outcome: a feed that looks busy and converts nothing, plus a reviewer who stops reading carefully around week three, which is precisely how an unapproved claim eventually ships.
+
+**2026-11-21 update:** the Lightsword daily directive makes a normal week
+**10 posts** (7 Lightsword + 3 client drafts), not nine. That is still one and a
+half a day, well below the thirty this section rejects; the argument is
+unchanged.
 
 The brief's cadence floor is three to four posts a week per active platform. Nine across two active platforms sits at the floor by design, not below it.
 
@@ -227,6 +240,14 @@ An agency that writes every client in the agency's voice is the most common way 
 
 ## 8. The 30-day calendar
 
+> **2026-11-08 amendment.** The rows in §8.1 and the source-asset list in §8.2
+> are superseded for 2026-11-08..2026-12-08 by `plans/growth-plan-30d-2026-11-08.md`
+> §7 and the operational rows in `plans/calendar-30d.md`. Where they disagree
+> with this table, they win: the 2026-11-04 rows assumed LinkedIn (now deferred),
+> a human gate (retired 2026-11-05), and week-1 social variants that were already
+> published 11-06/11-07. The weekly planning job reads the calendar rows and the
+> new plan first. This table stays as the original design record.
+
 **Schema.** `date | channel | pillar | asset-id | working title | type | source | owner`
 
 `type` is one of `source` (a long-form asset that publishes to the blog and generates variants), `derived` (a social post cut from a source asset, format only), or `empty` (a deliberate blank with a reason).
@@ -295,6 +316,11 @@ Eight Lightsword, four flambeee. The client gets a quarter of the volume in mont
 Every source asset cites a document that exists in the repo or on the client's public site. A00 cites this plan, which is why this plan has to be right rather than merely plausible.
 
 ### 8.3 Deliberate blanks
+
+**2026-11-21 update:** the weekend blanks below are superseded from 2026-11-23
+by the daily rows in `plans/growth-plan-30d-2026-11-08.md` §7.5. The weeks 1-2
+blank rows stand as history; the daily directive replaces the weekend rule from
+week 3.
 
 | Date | Why |
 |---|---|

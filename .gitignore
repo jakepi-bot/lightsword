@@ -29,7 +29,11 @@ npm-debug.log*
 
 # Local scratch
 tmp/
+tmp*.txt
 .cache/
+
+# Client-provided brand pack: used on the client's account, not ours to publish
+brand/flambeee-assets/
 
 # Runtime artifacts — scheduled runs write these; never commit (public repo)
 queue/

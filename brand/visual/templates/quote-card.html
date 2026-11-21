@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lightsword — quote card</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+<script src="../fit.js" defer></script>
+<style>
+  .q { height: 404px; }
+  .beam { margin-bottom: 44px; }
+  .attr-row { display: flex; align-items: center; gap: 28px; margin-top: 44px; }
+  .attr-line { flex: 1; height: 1px; background: var(--line); }
+</style>
+</head>
+<body class="square">
+<div class="stage">
+
+  <div class="hdr">
+    <div class="lockup">{{mark}}<span class="wordmark">Lightsword</span></div>
+    <div class="hdr-label">{{hdr_label}}</div>
+  </div>
+
+  <div class="content">
+    <div class="beam"></div>
+    <div class="fitbox q">
+      <h1 class="display d1" data-fit data-floor="50">{{quote}}</h1>
+    </div>
+    <div class="attr-row"><p class="meta">{{attribution}}</p><span class="attr-line"></span><span class="endcap"></span></div>
+  </div>
+
+  <div class="ftr">
+    <div class="rule"></div>
+    <div class="row"><span>lightsword.org</span><span>{{footer_right}}</span></div>
+  </div>
+
+</div>
+</body>
+</html>

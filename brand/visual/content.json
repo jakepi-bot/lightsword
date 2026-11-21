@@ -1,0 +1,125 @@
+{
+  "_comment": "Copy deck for every Lightsword social asset. Edit text here, run `python3 render.py`, ship the PNG. Every number below is verified and dated; do not soften or invent one.",
+  "formats": {
+    "T01": {
+      "template": "quote-card.html",
+      "w": 1200,
+      "h": 1200,
+      "slug": "quote-insight"
+    },
+    "T02": {
+      "template": "announcement.html",
+      "w": 1200,
+      "h": 1200,
+      "slug": "announcement"
+    },
+    "T03": {
+      "template": "thread-cover.html",
+      "w": 1200,
+      "h": 630,
+      "slug": "thread-cover"
+    },
+    "T04": {
+      "template": "client-work.html",
+      "w": 1200,
+      "h": 1200,
+      "slug": "client-work-flambeee"
+    },
+    "T05": {
+      "template": "link-card.html",
+      "w": 1200,
+      "h": 630,
+      "slug": "og-link-card"
+    },
+    "T06": {
+      "template": "metric-card.html",
+      "w": 1200,
+      "h": 1200,
+      "slug": "metric"
+    },
+    "T02B": {
+      "template": "announcement.html",
+      "w": 1200,
+      "h": 1200,
+      "slug": "announcement-gate-check"
+    }
+  },
+  "assets": [
+    {
+      "id": "T01",
+      "vars": {
+        "hdr_label": "Front door · 2026-11-08",
+        "quote": "Clear marketing for small product teams.\nEvery claim links a source.\nOr it does not ship.",
+        "attribution": "Lightsword — four roles, one nightly run, one gate",
+        "footer_right": "T01"
+      },
+      "alt": "Lightsword quote card. Text: Clear marketing for small product teams. Every claim links a source. Or it does not ship. Attributed to Lightsword, four roles, one nightly run, one gate."
+    },
+    {
+      "id": "T02",
+      "vars": {
+        "hdr_label": "Site note 01",
+        "eyebrow": "Corrected",
+        "headline": "The homepage was wrong about how we work.",
+        "support": "It said nothing publishes without a human gate. That stopped being true on 5 November. The page is fixed.",
+        "provenance": "Updated 2026-11-08",
+        "footer_right": "T02"
+      },
+      "alt": "Lightsword announcement card. Heading: The homepage was wrong about how we work. Body: It said nothing publishes without a human gate. That stopped being true on 5 November. The page is fixed."
+    },
+    {
+      "id": "T03",
+      "vars": {
+        "title": "How we pick a post topic",
+        "hook": "Four steps, one test, no calendar software.",
+        "footer_right": "T03"
+      },
+      "alt": "Lightsword thread cover. Title: How we pick a post topic. Subtitle: Four steps, one test, no calendar software."
+    },
+    {
+      "id": "T04",
+      "vars": {
+        "client_label": "For flambeee",
+        "hdr_label": "Client work 01",
+        "client_name": "flambeee",
+        "headline": "Fourteen pages, every one reachable.",
+        "proof": "8 game pages + 6 app pages, checked link by link, 2026-11-08",
+        "footer_right": "T04"
+      },
+      "alt": "Client work card for flambeee. Heading: Fourteen pages, every one reachable. Proof line: 8 game pages plus 6 app pages, checked link by link, 2026-11-08."
+    },
+    {
+      "id": "T05",
+      "vars": {
+        "title": "Clear marketing for small product teams.",
+        "description": "Short posts, pages, and proposals. Every claim links a source.",
+        "domain": "lightsword.org"
+      },
+      "alt": "Lightsword link card. Title: Clear marketing for small product teams. Description: Short posts, pages, and proposals. Every claim links a source."
+    },
+    {
+      "id": "T06",
+      "vars": {
+        "hdr_label": "Site · 2026-11-08",
+        "label": "Total page weight, html + css",
+        "number": "3.6",
+        "unit": "KB",
+        "source": "Lightsword baseline audit, 2026-11-08",
+        "footer_right": "T06"
+      },
+      "alt": "Lightsword metric card. Figure: 3.6 KB total page weight, HTML plus CSS. Source: Lightsword baseline audit, 2026-11-08."
+    },
+    {
+      "id": "T02B",
+      "vars": {
+        "hdr_label": "Gate note · 2026-11-19",
+        "eyebrow": "Corrected",
+        "headline": "A gate pass is not a fact check.",
+        "support": "Four drafts passed the gate carrying copy that stopped being true on 5 November. The gate checks words and sources. Currency is a five-line check before staging.",
+        "provenance": "Lightsword, 2026-11-19",
+        "footer_right": "T02B"
+      },
+      "alt": "Lightsword announcement card. Heading: A gate pass is not a fact check. Body: Four drafts passed the gate carrying copy that stopped being true on 5 November. The gate checks words and sources. Currency is a five-line check before staging."
+    }
+  ]
+}

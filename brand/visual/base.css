@@ -1,0 +1,160 @@
+/* ============================================================
+   Lightsword — template frame v1.0
+   One dark field, one beam, one message. All six formats share
+   this frame so a profile grid reads as one system.
+   ============================================================ */
+
+* { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+html, body {
+  margin: 0; padding: 0;
+  width: var(--canvas);
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-kerning: normal;
+  text-rendering: geometricPrecision;
+}
+
+body.square { height: var(--canvas); }
+body.wide   { height: 630px; }
+
+/* ---- the field ------------------------------------------- */
+.stage {
+  position: relative;
+  width: 100%; height: 100%;
+  padding: var(--pad);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+/* Engineering grid: 96 px pitch, lines land exactly on the
+   margins (x=96, x=1104). Covers only, and it dissolves toward
+   the type so no rule ever crosses a line of text. */
+.stage.grid::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(to right, var(--line) 0 1px, transparent 1px var(--grid)),
+    repeating-linear-gradient(to bottom, var(--line) 0 1px, transparent 1px var(--grid));
+  opacity: .42;
+  -webkit-mask-image: radial-gradient(115% 95% at 88% 12%, #000 0%, #000 38%, transparent 82%);
+  mask-image: radial-gradient(115% 95% at 88% 12%, #000 0%, #000 38%, transparent 82%);
+  pointer-events: none;
+}
+.stage > * { position: relative; z-index: 1; }
+
+/* ---- header ---------------------------------------------- */
+.hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px; flex: none;
+}
+.lockup { display: flex; align-items: center; gap: 20px; }
+.lockup svg { display: block; }
+.wordmark {
+  font-size: 30px; font-weight: 600; letter-spacing: -.022em;
+  color: var(--text-hi); line-height: 1;
+}
+.hdr-label {
+  font-family: var(--font-mono); font-size: var(--t-meta);
+  font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); line-height: 1;
+  display: flex; align-items: center; gap: 20px;
+}
+
+/* ---- content --------------------------------------------- */
+/* auto margins centre the message block between header and
+   footer. Block height is fixed per format, so every card in a
+   series lands on the same optical line. */
+.content {
+  flex: none;
+  margin-top: auto; margin-bottom: auto;
+}
+
+.kicker {
+  font-family: var(--font-mono); font-size: var(--t-kicker);
+  font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--blade); line-height: 1; margin: 0;
+  display: flex; align-items: center; gap: 22px;
+}
+.kicker.is-muted { color: var(--muted); }
+.kicker .tick { display: block; width: 28px; height: 3px; background: var(--blade); }
+
+.beam { width: 180px; height: 6px; background: var(--blade); flex: none; }
+.beam.wide  { width: 360px; }
+.beam.client{ background: var(--client); }
+
+.fitbox { overflow: hidden; }
+.display {
+  margin: 0; font-weight: 600; color: var(--text-hi);
+  letter-spacing: -.032em; text-wrap: balance;
+}
+.d1 { font-size: var(--t-d1); line-height: 1.13; letter-spacing: -.028em; }
+.d2 { font-size: var(--t-d2); line-height: 1.05; letter-spacing: -.036em; }
+.d3 { font-size: var(--t-d3); line-height: 1.12; letter-spacing: -.028em; }
+
+.lede {
+  margin: 0; font-size: var(--t-lede); line-height: 1.46;
+  font-weight: 400; color: var(--muted); letter-spacing: -.008em;
+  max-width: 860px;
+}
+.lede strong { color: var(--text); font-weight: 500; }
+
+.meta {
+  font-family: var(--font-mono); font-size: var(--t-meta);
+  font-weight: 500; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--muted); line-height: 1.4; margin: 0;
+}
+
+/* beam + label on one line: the provenance stamp */
+.stamp { display: flex; align-items: center; gap: 26px; }
+
+/* ---- footer ---------------------------------------------- */
+.ftr { flex: none; }
+.ftr .rule { height: 1px; background: var(--line); width: 100%; }
+.ftr .row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 26px;
+  font-family: var(--font-mono); font-size: var(--t-meta);
+  font-weight: 500; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---- components ------------------------------------------ */
+.chip {
+  display: inline-flex; align-items: center; gap: 14px;
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 14px 26px;
+  font-family: var(--font-mono); font-size: 22px; font-weight: 500;
+  letter-spacing: .06em; text-transform: uppercase; color: var(--text);
+}
+
+/* thread progress ticks */
+.ticks { display: flex; gap: 10px; align-items: center; }
+.ticks i { display: block; width: 26px; height: 5px; background: var(--line); }
+.ticks i.on { background: var(--text); }
+
+/* rule terminus: a blade end-cap, so a hairline reads as design */
+.endcap { width: 8px; height: 8px; background: var(--blade); flex: none; }
+
+/* client-work field */
+.stage.client { background: var(--ink); }
+.stage.client::after {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(120% 90% at 8% 0%, var(--client-navy) 0%, transparent 62%);
+  opacity: .8; pointer-events: none;
+}
+
+/* metric numeral */
+.numeral {
+  font-size: var(--t-num); line-height: .82; font-weight: 600;
+  letter-spacing: -.055em; color: var(--text-hi);
+  font-variant-numeric: tabular-nums; margin: 0;
+}
+.numeral .unit {
+  font-size: .40em; letter-spacing: -.01em; color: var(--blade);
+  padding-left: .10em; vertical-align: .30em;
+}
+
+.bigmark { position: absolute; right: 60px; top: 50%; transform: translateY(-50%); }

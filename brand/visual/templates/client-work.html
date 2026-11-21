@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lightsword — client work card</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+<script src="../fit.js" defer></script>
+<style>
+  .clientname {
+    margin: 0; font-size: 96px; line-height: .96; font-weight: 700;
+    letter-spacing: -.05em; color: var(--text-hi);
+  }
+  .clientname .pip {
+    display: inline-block; width: 15px; height: 15px; border-radius: 50%;
+    background: var(--client); margin-left: 10px; vertical-align: 26px;
+  }
+  .h { height: 232px; margin-top: 48px; }
+  .proof { display: flex; align-items: center; gap: 16px; margin-top: 8px; }
+  .proof .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--signal); flex: none; }
+  .stamp { margin-top: 48px; }
+  .client-sign { display: flex; align-items: center; gap: 14px; }
+  .client-sign span {
+    font-family: var(--font-mono); font-size: 22px; font-weight: 500;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
+  }
+</style>
+</head>
+<body class="square">
+<div class="stage client">
+
+  <div class="hdr">
+    <div class="hdr-label">{{client_label}}</div>
+    <div class="hdr-label">{{hdr_label}}</div>
+  </div>
+
+  <div class="content">
+    <p class="clientname">{{client_name}}<span class="pip"></span></p>
+    <div class="fitbox h">
+      <h1 class="display d3" data-fit data-floor="44">{{headline}}</h1>
+    </div>
+    <div class="proof"><span class="dot"></span><p class="meta">{{proof}}</p></div>
+    <div class="stamp"><div class="beam client" style="width: 240px; height: 8px;"></div></div>
+  </div>
+
+  <div class="ftr">
+    <div class="rule"></div>
+    <div class="row">
+      <span class="client-sign">{{mark_sm}}<span>Lightsword</span></span>
+      <span>{{footer_right}}</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
