@@ -34,7 +34,7 @@ planning job lands the calendar rows and briefs well before it.
 | 4 | 22:20 | Content Lead | Generate tomorrow's assets from brief + calendar row | `queue/drafts/*` | Max 3 assets, every claim sourced. No brief = no asset. When the cap binds, the daily Lightsword post ships first; a Friday flambeee batch may roll to Saturday's run and still stage before the client's Monday 12:05 slot. |
 | 5 | 22:32 | Content Lead | Mechanical gate: `python3 workflows/gate.py <files>` | pass/fail mark per file | Fail closed. A FAIL blocks staging for that file. Time-boxed 3 min. |
 | 6 | 22:35 | Strategist | Adjudicate gate failures: drop, re-brief, or decide-and-log | `queue/escalations/` | Only failures reach here; 5-min budget; >3 failures = a brief problem, say so in the digest. Decisions are recorded with reasons; nothing waits on a human. |
-| 7 | 22:40 | Distribution | Publish passing social assets live; write passing blog rows to the site dir; append manifest. A link post's staged asset carries the brief's `text_fallback` (the no-link CTA) so the 18:45 check can swap without new copy | `queue/social/*.json`, `~/share/lightsword-site/blog/`, `published/manifest.ndjson` | Postiz/scheduler or native API. Every publish appends the manifest with asset-id, platform, url, timestamp. **Lightsword Bluesky is armed, not posted early:** `python3 workflows/bsky.py arm --asset-id <id> --publish-at <date>T19:00:00-06:00` (the slot from `plans/posting-schedule.json`); the 5-minute tick publishes at 19:00. Postiz absent = publish via native API + WARNING, not failure. A blog row is a site page, never a Bluesky post. |
+| 7 | 22:40 | Distribution | Publish passing social assets live; write passing blog rows to the site dir; **deploy the site with `bash workflows/site-deploy.sh`**; append manifest. A link post's staged asset carries the brief's `text_fallback` (the no-link CTA) so the 18:45 check can swap without new copy | `queue/social/*.json`, `~/share/lightsword-site/blog/`, `published/manifest.ndjson` | Postiz/scheduler or native API. Every publish appends the manifest with asset-id, platform, url, timestamp. **Lightsword Bluesky is armed, not posted early:** `python3 workflows/bsky.py arm --asset-id <id> --publish-at <date>T19:00:00-06:00` (the slot from `plans/posting-schedule.json`); the 5-minute tick publishes at 19:00. Postiz absent = publish via native API + WARNING, not failure. A blog row is a site page, never a Bluesky post. **The deploy is what makes a new blog page live:** writing the file on ai-pc does nothing on its own. Deploy failure = one WARNING line and the link post keeps its `text_fallback`; never claim a page is live. No blog row written = no deploy needed. |
 | 8 | 22:50 | Analyst | Five-line morning digest from run log and snapshots; on Fridays also the weekly report | `reports/nightly/YYYY-MM-DD.md`; `reports/nightly/YYYY-MM-DD.digest.txt`; `reports/weekly/YYYY-MM-DD.md` | A line that says nothing gets deleted. Weekly report: six numbers, one paragraph, one decision, every value traced to a file; `unavailable` stays `unavailable`. |
 | 8b | 22:52 | Distribution | Deliver the digest: `python3 workflows/notify.py --digest-today --kind nightly` | `logs/notify.ndjson` | The script posts `reports/nightly/<today>.digest.txt` to Jake's Discord DM. ERROR = one warning line in the run's NDJSON and in the digest; one retry, never more. The 22:10 fallback job covers a miss. |
 | 9 | 22:55 | Strategist | "Decisions taken" list ordered by cost of delay, one line each | same file, appendix | Max 3 items; decisions logged with reasons, policy questions noted for Jake's weekly review. |
@@ -61,13 +61,19 @@ chain — no silent continuation on stale data.
   written after a gate pass to
   `~/share/lightsword-site/blog/<date>-<slug>.html`, linked from
   `blog/index.html`, and added to `sitemap.xml`. It is never posted to Bluesky
-  as the article. A social post that links to it may publish only after the
-  live URL returns 200. The `Lightsword blog link check` job (`45 18 * * *`,
-  `workflows/link-check.py`) runs at 18:45 for the 19:00 slot: it checks every
-  URL in the armed item, swaps in the item's `text_fallback` when the brief
-  staged one, and otherwise marks the item `held-link-dead` so the tick does
-  not publish a dead link. Both outcomes go to Jake's DM and
-  `logs/link-check.ndjson`. Never claim a page is live when it is not.
+  as the article. **Writing the file is not publishing it:** the site is served
+  from a Docker container on `ai-services` (`docs/site-hosting.md`), so run
+  `bash workflows/site-deploy.sh` after writing, which rsyncs the directory,
+  verifies the `index.html` sha256 and requires every HTML page to answer as
+  expected at the origin. A deploy failure is one WARNING line — the link post
+  then keeps its `text_fallback`. A social post that links to a blog page may
+  publish only after the live URL returns 200. The `Lightsword blog link check`
+  job (`45 18 * * *`, `workflows/link-check.py`) runs at 18:45 for the 19:00
+  slot: it checks every URL in the armed item, swaps in the item's
+  `text_fallback` when the brief staged one, and otherwise marks the item
+  `held-link-dead` so the tick does not publish a dead link. Both outcomes go to
+  Jake's DM and `logs/link-check.ndjson`. Never claim a page is live when it is
+  not.
 - **The two-part gate.** Mechanical: `workflows/gate.py` decides pass/fail;
   the Content Lead runs it and may not edit it or waive a result. Adjudicated:
   the Strategist reads only the failures and drops, re-briefs, or

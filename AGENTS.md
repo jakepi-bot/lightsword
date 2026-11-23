@@ -44,6 +44,13 @@ they also load automatically into any cron run with this directory as cwd.
    while the `plans/scope-flambeee.md` §13 window is open and only with
    `FLAMBEEE_BSKY_APP_PASSWORD` in the profile `.env`. A main account password
    is never stored, never passed on the command line, and never logged.
+10. **One site publishing path.** The site is served from a Docker container on
+    `ai-services` (`http://100.65.253.95:8081`, tailnet only); cloud Caddy
+    reverse-proxies `www.lightsword.org` to it. Content's source of truth is
+    `~/share/lightsword-site/` on ai-pc and it reaches the origin only through
+    `bash workflows/site-deploy.sh`. Never write into `/srv/lightsword-site/site`
+    on the host, and never claim a page is live because the file exists on
+    ai-pc. Details: `docs/site-hosting.md`.
 
 
 ## Scheduled workflows
