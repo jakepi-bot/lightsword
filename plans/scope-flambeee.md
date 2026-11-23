@@ -56,7 +56,7 @@ Client files are fixed by flambeee (defect list due 2026-11-12), never by us.
 - Lightsword Bluesky `@lightsword.bsky.social`: exists, app password in profile `.env` (600), login verified 2026-11-05. LinkedIn deferred (Bluesky-first call).
 - flambeee Bluesky `@flambeee.bsky.social`: exists, owner-managed. No Lightsword credential held or needed in phase 1.
 - DNS: apex `A @ → 107.152.39.20` added in Porkbun (verified at authoritative + 1.1.1.1 + 8.8.8.8); local cache stale at check time. Keep `www` everywhere until `https://lightsword.org/` returns 200.
-- Serve: cloud host uses cron sync, not Syncthing (Jake call 2026-11-05). Verified: local `~/share/lightsword-site/index.html` sha256 == live `https://www.lightsword.org/` sha256 (`c7ea1680…43245fa`), 200.
+- Serve: **moved 2026-11-23** (Jake directive). The site runs in a Docker container `lightsword-web` on `ai-services`, publishing `http://100.65.253.95:8081` on the tailnet only; cloud Caddy reverse-proxies `www.lightsword.org` to it. Source of truth stays `~/share/lightsword-site/` on ai-pc; publish with `workflows/site-deploy.sh`. The old cloud cron-sync docroot is retired. Details: `docs/site-hosting.md`. Verified: local `~/share/lightsword-site/index.html` sha256 == `http://100.65.253.95:8081/` sha256 (`bd6e61d5…77a0663`), 200, 2026-11-23.
 - Analytics: Umami tag + Search Console still pending. Until then: publish + record, claim nothing.
 
 ## 7. Cross-team channel (Jake authorization 2026-11-05)
