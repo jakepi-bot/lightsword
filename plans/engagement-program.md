@@ -121,9 +121,23 @@ reason, and nothing is sent.
 | A scope file granting the activity | `plans/<client> scope>.md` | Blocked. Engagement is not a default. |
 | A claims file for every fact the snippets assert | `brand/claims-<client>.md` | Blocked. No sourced claim, no reply. |
 | The client's own voice | `brand/voice-<client>.md` | Blocked. A Lightsword-voice sentence on a client account is a gate failure. |
-| A reply playbook with pre-approved snippets | `plans/reply-playbook-<client>.md` | Blocked. Discovery without approved copy produces invented copy. |
+| A reply playbook with pre-approved snippets | `plans/reply-playbook-<client>.md` | **Replies blocked**; the account keeps its post and its snapshot. Discovery without approved copy produces invented copy. `schedule-check.py` enforces this: no playbook file, no reply shift. |
 | An open written window, where the scope requires one | `state/<client>-window.json` | Blocked. `check_window` refuses the write. |
 | An app password in the profile `.env` | `.env` | Blocked. Reported, never guessed. |
+
+### The Lightsword account — posting yes, replies not yet
+
+`@lightsword.bsky.social` needs no third-party consent, so nothing gates a send
+on it but the caps and the gate. It still has **no reply playbook**, and a reply
+is never improvised: without pre-approved snippets there is no copy that is both
+sourced and in voice. So its daily post (19:00) and its daily snapshot run, and
+its reply shift is off with that reason visible in every run. Writing
+`plans/reply-playbook-lightsword.md` is a Strategist decision and needs its own
+claims rows; it is not something a nightly run should invent.
+
+Note that this is the honest reading of "every client": the program is built for
+every account, and an account that cannot safely reply says so rather than
+producing something unsourced.
 
 ### flambeee — blocked today
 

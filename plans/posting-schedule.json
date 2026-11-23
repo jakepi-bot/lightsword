@@ -47,12 +47,14 @@
       "empty_rows_allowed": true,
       "engagement": {
         "enabled": true,
-        "status": "active",
+        "status": "blocked",
         "replies_per_day": 3,
         "posts_per_day": 1,
         "requires_window": false,
         "client": null,
-        "note": "Lightsword's own account. No third-party consent involved, so nothing gates the send beyond the caps and the gate."
+        "note": "Lightsword's own account. No third-party consent involved, so nothing gates the send beyond the caps and the gate.",
+        "playbook": null,
+        "status_reason": "no reply playbook exists for the Lightsword account, so there is no pre-approved copy to send. Replies to strangers are not improvised: writing plans/reply-playbook-lightsword.md is a Strategist decision. The daily post and the daily snapshot run as normal."
       }
     },
     "fb": {
@@ -77,7 +79,8 @@
         "replies_per_day": 3,
         "posts_per_day": 1,
         "requires_window": true,
-        "client": "flambeee"
+        "client": "flambeee",
+        "playbook": "plans/reply-playbook-flambeee.md"
       }
     }
   },

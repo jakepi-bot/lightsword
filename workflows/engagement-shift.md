@@ -32,7 +32,8 @@ Read `plans/schedule-check.py`'s engagement lines, which are derived from
 - `engage run` → the account is engaged this shift.
 - `engage OFF` → the account is not engaged. **Report the reason, do not send.**
   A blocked client is a finding, not a problem to solve: the reason is consent,
-  and this run cannot grant it.
+  and this run cannot grant it. A missing reply playbook is the same kind of
+  finding: writing pre-approved copy is not this run's job.
 
 An account with no entry at all is not engaged. Absence is not permission.
 

@@ -236,6 +236,11 @@ def main(argv: list[str]) -> int:
             info["engagement"] = {"runnable": False, "reason": "engagement disabled"}
         else:
             status = eng.get("status")
+            # Replies are only ever sent from a pre-approved playbook. An account
+            # with no playbook is engaged for posting and snapshotting only; it
+            # never gets an improvised reply (plans/engagement-program.md §3).
+            playbook = eng.get("playbook")
+            playbook_ok = bool(playbook) and (REPO / playbook).exists()
             window_ok = True
             if eng.get("requires_window"):
                 win_path = Path(os.path.expanduser(channel.get("window_file", "")))
@@ -243,7 +248,7 @@ def main(argv: list[str]) -> int:
                 window_ok = win["state"] == "open"
                 if not window_ok:
                     info.setdefault("window", win)
-            runnable = status == "active" and window_ok
+            runnable = status == "active" and window_ok and playbook_ok
             reason = None
             if status != "active":
                 reason = eng.get("status_reason") or f"engagement status is {status!r}"
@@ -251,12 +256,16 @@ def main(argv: list[str]) -> int:
             elif not window_ok:
                 reason = "a client write needs an open written window"
                 warnings.append(f"{key}: engagement blocked — {reason}")
+            elif not playbook_ok:
+                reason = f"no reply playbook at {playbook or '(unset)'} — replies are not improvised"
+                warnings.append(f"{key}: engagement blocked — {reason}")
             info["engagement"] = {
                 "runnable": runnable,
                 "status": status,
                 "replies_per_day": eng.get("replies_per_day"),
                 "posts_per_day": eng.get("posts_per_day"),
                 "requires_window": bool(eng.get("requires_window")),
+                "playbook": playbook,
                 "reason": reason,
             }
         report["channels"][key] = info
