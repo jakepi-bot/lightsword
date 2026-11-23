@@ -15,6 +15,12 @@ pre-flight).
 | Lightsword Bluesky (`@lightsword.bsky.social`) | **daily, 7 days** | **19:00** | Nightly arms at 22:00 T-1; the 5-minute outbox tick publishes at 19:00 | **active** |
 | Lightsword blog | 2 articles/week (Mon + one weekday) | link post at 19:00 | Nightly writes the page at 22:40 T-1; the 18:45 link check swaps in the brief's `text_fallback` or holds the item unless the live URL is 200 | active |
 | flambeee Bluesky (`@flambeee.bsky.social`) | 3 drafts/week, staged | client's 12:05 | Client owner by default; the bot publishes only inside a written window | **blocked — §14 window closed 2026-11-19 07:10** |
+| **Engagement (replies to strangers)** | **daily, every day, per account** | **19:10** (job `a9aa000ba1f3`) | `workflows/engagement-shift.md` | **LT active; flambeee blocked on consent** |
+
+Engagement is a separate clock from content: it runs every day whether or not the
+calendar has a row (`plans/engagement-program.md`, Jake directive 2026-11-23).
+The bot's own account has no third-party consent to obtain, so its shift runs
+from today. flambeee's does not, and the reason is in `plans/clients.json`.
 
 The daily campaign is `lightsword-daily-2026-11-21` on the Lightsword account;
 its first publish is **2026-11-23 19:00 CT**. The client account keeps its

@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "updated": "2026-11-23",
+  "authority": {
+    "directive": "Jake 2026-11-23: standing daily engagement on every client account, not only during a campaign",
+    "program": "plans/engagement-program.md"
+  },
+  "note": "The registry is read as permission to act. A client entry is only engaged when its status is 'active', its files exist, and (where requires_window) its window file is open. Anything else is reported as blocked with the reason, never silently skipped and never worked around. Add a client by adding an entry here with status set to the truth, not to the intent.",
+  "clients": {
+    "flambeee": {
+      "display_name": "flambeee",
+      "account_key": "fb",
+      "handle": "flambeee.bsky.social",
+      "status": "blocked",
+      "status_reason": "consent, not tooling: plans/scope-flambeee.md §14 authorized bot posting and replying for one window, 2026-11-16 07:10 -> 2026-11-19 07:10 CT, and it closed. Discovery and drafting run daily; every send refuses until a standing window is written.",
+      "unblocks_on": "a written standing window: {\"start\",\"end\",\"authority\"} at state/flambeee-window.json plus the matching entry in plans/scope-flambeee.md",
+      "requires_window": true,
+      "window_file": "~/.hermes/profiles/lightsword/state/flambeee-window.json",
+      "credentials": {
+        "env_var": "FLAMBEEE_BSKY_APP_PASSWORD",
+        "present": true
+      },
+      "files": {
+        "scope": "plans/scope-flambeee.md",
+        "claims": "brand/claims-flambeee.md",
+        "voice": "brand/voice-flambeee.md",
+        "playbook": "plans/reply-playbook-flambeee.md",
+        "calendar_channel": "FB Bluesky (staged)"
+      },
+      "engagement": {
+        "replies_per_day": 3,
+        "posts_per_day": 1,
+        "post_slot": "12:05",
+        "reply_shifts": ["09:10", "19:10"],
+        "reply_window": "14:00-20:00",
+        "follows": "not authorized by any scope; recorded as an unspent lever"
+      },
+      "snapshot": {
+        "command": "python3 workflows/reach-metrics.py --client flambeee",
+        "out": "metrics/flambeee/reach.ndjson"
+      },
+      "added": "2026-11-13",
+      "note": "client one. The 72h reach campaign is plans/campaign-72h-reach-2026-11-16.md; its levers became this program on 2026-11-23."
+    }
+  },
+  "awaited_clients": {
+    "note": "A client named here has been discussed or proposed but is NOT in 'clients' and is NOT engaged. Moving one from here to 'clients' is the onboarding action described in plans/engagement-program.md §9, and it needs a written scope first."
+  }
+}

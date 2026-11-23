@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "updated": "2026-11-21",
+  "version": 2,
+  "updated": "2026-11-23",
   "timezone": "America/Chicago",
   "authority": {
     "kanban": "t_3e006185",
@@ -8,8 +8,9 @@
     "request": "Update Lightsword campaign schedule to daily",
     "operator_comment": "2026-11-21: It should write when is best for engagement",
     "supersedes": [
-      "plans/growth-plan-30d-2026-11-08.md §6.1 (5 Lightsword posts/week, Mon-Fri, 09:00)",
-      "reports/campaign/2026-11-19-reach-final.md recommendation 5 (drop the daily post cadence)"
+      "plans/growth-plan-30d-2026-11-08.md \u00a76.1 (5 Lightsword posts/week, Mon-Fri, 09:00)",
+      "reports/campaign/2026-11-19-reach-final.md recommendation 5 (drop the daily post cadence)",
+      "plans/campaign-72h-reach-2026-11-16.md \u00a75 and \u00a77 (engagement runs only during a campaign window) \u2014 replaced by plans/engagement-program.md (Jake directive 2026-11-23)"
     ]
   },
   "cadence": "daily",
@@ -23,7 +24,7 @@
     "client_component": {
       "account": "fb",
       "status": "blocked",
-      "reason": "scope §14 window closed 2026-11-19 07:10; a new written window is required before any client publish"
+      "reason": "scope \u00a714 window closed 2026-11-19 07:10; a new written window is required before any client publish"
     }
   },
   "channels": {
@@ -31,34 +32,66 @@
       "handle": "lightsword.bsky.social",
       "calendar_channel": "LT Bluesky",
       "cadence": "daily",
-      "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
+      "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+      ],
       "publish_time": "19:00",
       "publisher": "nightly b83aa855e26a arms at 22:00 T-1; outbox tick 84e5289134f4 publishes at the slot",
       "requires_window": false,
-      "empty_rows_allowed": true
+      "empty_rows_allowed": true,
+      "engagement": {
+        "enabled": true,
+        "status": "active",
+        "replies_per_day": 3,
+        "posts_per_day": 1,
+        "requires_window": false,
+        "client": null,
+        "note": "Lightsword's own account. No third-party consent involved, so nothing gates the send beyond the caps and the gate."
+      }
     },
     "fb": {
       "handle": "flambeee.bsky.social",
       "calendar_channel": "FB Bluesky (staged)",
       "cadence": "3/week staged",
-      "days": ["mon", "wed", "fri"],
+      "days": [
+        "mon",
+        "wed",
+        "fri"
+      ],
       "publish_time": "12:05",
       "publisher": "client owner by default; bot publishes only inside a written window",
       "requires_window": true,
       "window_file": "~/.hermes/profiles/lightsword/state/flambeee-window.json",
-      "status": "blocked: scope §14 window closed 2026-11-19 07:10; daily client posting needs a new written window",
-      "empty_rows_allowed": true
+      "status": "blocked: scope \u00a714 window closed 2026-11-19 07:10; daily client posting needs a new written window",
+      "empty_rows_allowed": true,
+      "engagement": {
+        "enabled": true,
+        "status": "blocked",
+        "status_reason": "consent: scope \u00a714 window closed 2026-11-19 07:10; discovery and drafting run daily, every send refuses until a standing window is written",
+        "replies_per_day": 3,
+        "posts_per_day": 1,
+        "requires_window": true,
+        "client": "flambeee"
+      }
     }
   },
   "jobs": {
     "nightly": "b83aa855e26a",
     "outbox_tick": "84e5289134f4",
     "weekly_planning": "2b4e865f7401",
-    "link_check": "e180ec9bc2cd"
+    "link_check": "e180ec9bc2cd",
+    "engagement_shift": "a9aa000ba1f3"
   },
   "checks": {
     "schedule": "workflows/schedule-check.py (nightly phase 0)",
-    "links": "18:45 job e180ec9bc2cd, workflows/link-check.py: 200 or text_fallback/held before the 19:00 slot"
+    "links": "18:45 job e180ec9bc2cd, workflows/link-check.py: 200 or text_fallback/held before the 19:00 slot",
+    "engagement": "workflows/schedule-check.py engagement lines (per account) + workflows/engagement-shift.md (the shift)"
   },
   "review": {
     "after_posts": 14,
@@ -74,12 +107,30 @@
       "lt_originals": 15,
       "lt_interactions": 3,
       "by_hour": {
-        "05:00": {"posts": 2, "interactions": 0},
-        "07:00": {"posts": 3, "interactions": 0},
-        "08:00": {"posts": 1, "interactions": 2},
-        "09:00": {"posts": 5, "interactions": 0},
-        "19:00": {"posts": 1, "interactions": 0},
-        "22:00": {"posts": 3, "interactions": 1}
+        "05:00": {
+          "posts": 2,
+          "interactions": 0
+        },
+        "07:00": {
+          "posts": 3,
+          "interactions": 0
+        },
+        "08:00": {
+          "posts": 1,
+          "interactions": 2
+        },
+        "09:00": {
+          "posts": 5,
+          "interactions": 0
+        },
+        "19:00": {
+          "posts": 1,
+          "interactions": 0
+        },
+        "22:00": {
+          "posts": 3,
+          "interactions": 1
+        }
       },
       "note": "No hour has enough posts to rank; this is recorded so the next review has a baseline."
     },
@@ -99,6 +150,37 @@
         "finding": "quiet vs busy hours 1.00x",
         "url": "https://bskysuite.com/blog/bluesky-best-time-to-post/"
       }
+    ]
+  },
+  "engagement": {
+    "program": "plans/engagement-program.md",
+    "registry": "plans/clients.json",
+    "cadence": "daily",
+    "independent_of_calendar": true,
+    "note": "Engagement is its own clock. An `empty` calendar row skips campaign content generation and never skips this. Applies to every account in plans/clients.json plus the internal Lightsword account. One shift per day at 19:10 (job a9aa000ba1f3) until a client window opens; a second shift at 14:10 is enabled then, because 3 replies/day needs the spacing and both slots sit inside the 14:00-20:00 reply window the playbook requires. The three disabled flambeee campaign jobs are superseded by this standing job and should not be re-enabled individually.",
+    "shifts": [
+      "09:10",
+      "19:10"
+    ],
+    "reply_window": "14:00-20:00",
+    "caps": {
+      "replies_per_day": 3,
+      "replies_per_rolling_24h": 5,
+      "min_gap_minutes": 10,
+      "max_per_thread": 2,
+      "posts_per_day": 1
+    },
+    "snapshot": "python3 workflows/reach-metrics.py --client <slug> (once per engaged account, daily)",
+    "follows": "not authorized by any scope; unspent lever, not performed",
+    "review": {
+      "after_days": 30,
+      "owner": "Analyst",
+      "metric": "followers, inbound actions per reply sent, replies per eligible target found"
+    },
+    "superseded_jobs": [
+      "e4c672106011",
+      "913c13d1ec71",
+      "9667c1bfa244"
     ]
   }
 }

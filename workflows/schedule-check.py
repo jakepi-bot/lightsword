@@ -200,6 +200,7 @@ def main(argv: list[str]) -> int:
             "requires_window": bool(channel.get("requires_window")),
             "next_planned": None,
             "window": None,
+            "engagement": None,
         }
         if planned:
             brief = brief_status(REPO, planned["date"])
@@ -222,7 +223,75 @@ def main(argv: list[str]) -> int:
             info["window"] = win
             if win["state"] != "open":
                 warnings.append(f"{key}: client window {win['state']} — publishing blocked, staging only")
+
+        # Engagement is its own clock (plans/engagement-program.md). A missing or
+        # malformed engagement block disables that account's shift rather than
+        # failing the schedule: content work must not halt because a side clock
+        # is misconfigured. The reason is reported either way.
+        eng = channel.get("engagement")
+        if not isinstance(eng, dict) or "enabled" not in eng:
+            info["engagement"] = {"runnable": False, "reason": "no engagement block on this channel"}
+            warnings.append(f"{key}: no engagement block — the daily shift is off for this account")
+        elif not eng.get("enabled"):
+            info["engagement"] = {"runnable": False, "reason": "engagement disabled"}
+        else:
+            status = eng.get("status")
+            window_ok = True
+            if eng.get("requires_window"):
+                win_path = Path(os.path.expanduser(channel.get("window_file", "")))
+                win = window_state(win_path, now)
+                window_ok = win["state"] == "open"
+                if not window_ok:
+                    info.setdefault("window", win)
+            runnable = status == "active" and window_ok
+            reason = None
+            if status != "active":
+                reason = eng.get("status_reason") or f"engagement status is {status!r}"
+                warnings.append(f"{key}: engagement {status} — {reason}")
+            elif not window_ok:
+                reason = "a client write needs an open written window"
+                warnings.append(f"{key}: engagement blocked — {reason}")
+            info["engagement"] = {
+                "runnable": runnable,
+                "status": status,
+                "replies_per_day": eng.get("replies_per_day"),
+                "posts_per_day": eng.get("posts_per_day"),
+                "requires_window": bool(eng.get("requires_window")),
+                "reason": reason,
+            }
         report["channels"][key] = info
+
+    # The registry is read as permission to act: a client listed here with a
+    # status that is not 'active' must never be engaged, and a client in the
+    # registry with no matching channel is a configuration gap.
+    registry_path = REPO / "plans" / "clients.json"
+    registry = {}
+    if registry_path.exists():
+        try:
+            registry = json.loads(registry_path.read_text(encoding="utf-8")).get("clients", {})
+        except (ValueError, OSError) as exc:  # noqa: BLE001
+            warnings.append(f"clients registry unreadable ({exc}) — no client account is engaged")
+            registry = {}
+    else:
+        warnings.append("no plans/clients.json — no client account is engaged")
+    for slug, client in registry.items():
+        key = client.get("account_key")
+        ch_info = report["channels"].get(key) or {}
+        eng_info = ch_info.get("engagement") or {}
+        if key not in config["channels"]:
+            warnings.append(f"client {slug}: account_key {key!r} has no channel in the posting schedule")
+        elif client.get("status") != "active" and not eng_info.get("reason"):
+            # The channel block already reports a blocked or paused shift with its
+            # reason; this only catches a registry that disagrees with the schedule.
+            warnings.append(f"client {slug}: registry status {client.get('status')!r} — not engaged")
+    report["clients"] = {
+        slug: {
+            "account_key": c.get("account_key"),
+            "status": c.get("status"),
+            "reason": c.get("status_reason"),
+        }
+        for slug, c in registry.items()
+    }
 
     # Rows for the next seven days: the weekly job's contract.
     today = now.date()
@@ -270,6 +339,14 @@ def main(argv: list[str]) -> int:
                 print("           next publish none — no non-empty row in the next week")
             if ch["window"]:
                 print(f"           window    {ch['window']['state']} {ch['window'].get('start')} -> {ch['window'].get('end')}")
+            eng = ch.get("engagement") or {}
+            if eng:
+                flag = "run" if eng.get("runnable") else "OFF"
+                detail = f" ({eng['reason']})" if eng.get("reason") else ""
+                print(f"           engage    {flag:3} {eng.get('replies_per_day')} replies + {eng.get('posts_per_day')} post/day{detail}")
+        if report.get("clients"):
+            for slug, client in report["clients"].items():
+                print(f"client   : {slug:16} account={client['account_key']} status={client['status']}")
         if missing_dates:
             print("calendar : missing rows for " + ", ".join(missing_dates))
         for warning in warnings:

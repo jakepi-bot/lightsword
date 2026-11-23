@@ -31,6 +31,7 @@ planning job lands the calendar rows and briefs well before it.
 | 1 | 22:00 | Analyst | Pull site analytics, Search Console, social, email | `metrics/YYYY-MM-DD.json` | No tag/credentials: record `unavailable` + reason. Never fabricate a number. |
 | 2 | 22:05 | Distribution | Collect inbound since last run; flambeee client check (public surface only) | `queue/inbound/YYYY-MM-DD.json` | No accounts yet: record an empty set + warning. No sending. |
 | 3 | 22:10 | Distribution | Publish safe-class replies; hold position/risk replies for Strategist decision | `queue/replies/*` | Max 5 replies. Safe class (thanks, doc links, hours) publishes; pricing/outage/complaint/person held, never templated. Nothing needing a position goes out undecided. |
+| 3b | 22:15 | Distribution + Analyst | **Engagement bookkeeping — runs every day, whatever the calendar says.** Append the daily snapshot for every account (`reach-metrics.py --account lt`, `--client <slug>` per registry entry), then report each account's engagement state from `schedule-check.py` | `metrics/<account>/reach.ndjson`, `reports/engagement/<today>.md` | **An `empty` calendar row does not skip this phase**, and neither does a halted content chain: engagement is its own clock (`plans/engagement-program.md` §2). The reply shift itself runs in the reply window from cron job `913c13d1ec71` (`workflows/engagement-shift.md`); this phase records the day and names every blocked account with its reason. Reading is not writing: a blocked client still gets a snapshot. |
 | 4 | 22:20 | Content Lead | Generate tomorrow's assets from brief + calendar row | `queue/drafts/*` | Max 3 assets, every claim sourced. No brief = no asset. When the cap binds, the daily Lightsword post ships first; a Friday flambeee batch may roll to Saturday's run and still stage before the client's Monday 12:05 slot. |
 | 5 | 22:32 | Content Lead | Mechanical gate: `python3 workflows/gate.py <files>` | pass/fail mark per file | Fail closed. A FAIL blocks staging for that file. Time-boxed 3 min. |
 | 6 | 22:35 | Strategist | Adjudicate gate failures: drop, re-brief, or decide-and-log | `queue/escalations/` | Only failures reach here; 5-min budget; >3 failures = a brief problem, say so in the digest. Decisions are recorded with reasons; nothing waits on a human. |
@@ -49,6 +50,8 @@ chain — no silent continuation on stale data.
 - **Pre-flight row semantics** (all rows for tomorrow in `plans/calendar-30d.md`):
   - every row is `type: empty` → PASS: deliberate blank, skip phases 3–7,
     note it in the digest. Do **not** escalate. Empty days are rows, not gaps.
+    **Phase 3b still runs:** an empty content day is not a zero-engagement day
+    (`plans/engagement-program.md` §2).
   - one or more `source`/`derived` rows and every one has an unexpired brief in
     `queue/briefs/` → PASS.
   - any `source`/`derived` row without an unexpired brief → HALT phases 3–7,
